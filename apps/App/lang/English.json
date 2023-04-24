@@ -4,8 +4,7 @@
   },
   "Profile": {
     "Title": "Profile",
-    "SignIn": "SignIn",
-    "SignOut": "SignOut"
+    "SignIn": "SignIn"
   },
   "App.Settings": {
     "Title": "App Settings",
@@ -13,10 +12,17 @@
     "DarkMode": "Dark Mode",
     "Language": "Language",
     "Arabic": "عربي",
-    "English": "English"
+    "English": "English",
+    "SignOut": "SignOut"
   },
   "SignIn": {
     "Title": "SignIn",
-    "Google": "Continue with Google"
+    "Google": "Continue with Google",
+    "Apple": "Continue with Apple"
+  },
+  "Alert": {
+    "Yes": "yes",
+    "No": "no",
+    "Alert.SignOut": "are you sure you want to SignOut?"
   }
 }

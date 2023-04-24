@@ -4,11 +4,14 @@ import {
   statusCodes
 } from '@react-native-google-signin/google-signin'
 import { Button } from 'react-native-paper'
-import { Image } from 'react-native'
+import { Image, View } from 'react-native'
 import { webClientId } from '../config/app.config'
 import { useAuth } from '../context/auth'
 
-const MGoogleButton: React.FC<{ text: String }> = ({ text }) => {
+const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
+  text,
+  dark
+}) => {
   const { loading, GoogleSignIn } = useAuth()
 
   GoogleSignin.configure({
@@ -44,22 +47,50 @@ const MGoogleButton: React.FC<{ text: String }> = ({ text }) => {
   }
 
   return (
+    // <GoogleSigninButton
+    //   style={{ width: 192, height: 48, alignSelf: 'center' }}
+    //   size={GoogleSigninButton.Size.Wide}
+    //   color={
+    //     dark ? GoogleSigninButton.Color.Dark : GoogleSigninButton.Color.Light
+    //   }
+    //   onPress={() => Sign()}
+    //   disabled={loading}
+    // />
     <Button
       onPress={() => Sign()}
+      mode="elevated"
       // labelStyle={styles.label}
-      // color={isDarkMode ? '#FFFFFF' : '#4285F4'}
-      // color="#FFFFFF"
-      mode="contained"
+      buttonColor={dark ? '#FFFFFF' : '#4285F4'}
+      textColor={dark ? 'black' : 'white'}
       uppercase={false}
       disabled={loading}
+      contentStyle={{
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+      }}
       icon={({ size }) => (
-        <Image
-          source={require('../assets/google-logo.png')}
+        <View
           style={{
-            width: size + 5,
-            height: size + 5
+            backgroundColor: '#FFFFFF',
+            flex: 1,
+            justifyContent: 'center',
+            width: 50,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginLeft: -15,
+            margin: 1,
+            borderRadius: 3,
+            opacity: loading ? 0.25 : 1
           }}
-        />
+        >
+          <Image
+            source={require('../assets/google-logo.png')}
+            style={{
+              width: size,
+              height: size
+            }}
+          />
+        </View>
       )}
     >
       {text}

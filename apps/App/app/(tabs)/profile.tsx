@@ -1,6 +1,6 @@
 import Page from '../../layout/page'
 import { useI18n } from '../../context/i18n'
-import { Button, useTheme, Text } from 'react-native-paper'
+import { Button, Text } from 'react-native-paper'
 import { useRouter } from 'expo-router'
 import { View } from 'react-native'
 import { useAuth } from '../../context/auth'
@@ -8,8 +8,7 @@ import { useAuth } from '../../context/auth'
 export default function Profile() {
   const { I18n } = useI18n()
   const { user } = useAuth()
-  const { auth, SignOut, loading } = useAuth()
-  const theme = useTheme()
+  const { auth, loading } = useAuth()
   const router = useRouter()
 
   return (
@@ -17,16 +16,17 @@ export default function Profile() {
       <View style={{ flex: 1 }}>
         <Text variant="bodyLarge">{user?.email}</Text>
       </View>
-      <Button
-        icon="login"
-        mode="contained"
-        onPress={() => (auth ? SignOut() : router.push('/signin'))}
-        textColor={auth ? theme.colors.onSecondary : theme.colors.onPrimary}
-        buttonColor={auth ? theme.colors.secondary : theme.colors.primary}
-        disabled={loading}
-      >
-        {auth ? I18n.Profile.SignOut : I18n.Profile.SignIn}
-      </Button>
+
+      {auth ? null : (
+        <Button
+          icon="login"
+          mode="elevated"
+          onPress={() => router.push('/signin')}
+          disabled={loading}
+        >
+          {I18n.Profile.SignIn}
+        </Button>
+      )}
     </Page>
   )
 }

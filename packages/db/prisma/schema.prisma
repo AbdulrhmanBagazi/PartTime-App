@@ -19,6 +19,7 @@ model User {
     suspended         Boolean     @default(false)
     Type              AccountType @default(EMAIL)
     AccountId         String?
+    AppleId           String?
     createdAt         DateTime    @default(now())
     updatedAt         DateTime    @updatedAt
 }

@@ -1,5 +1,6 @@
 export const myLightTheme = {
   dark: false,
+  roundness: 1,
   colors: {
     primary: 'rgb(0, 99, 154)',
     onPrimary: 'rgb(255, 255, 255)',

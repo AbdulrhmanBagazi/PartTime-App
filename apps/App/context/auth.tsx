@@ -1,7 +1,8 @@
 import React from 'react'
-import { GoogleArgs, QueryResponse, UserTypes } from '../types/types'
+import { AppleArgs, GoogleArgs, QueryResponse, UserTypes } from '../types/types'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import { fetcher, poster } from '../api/auth.api'
+import * as AppleAuthentication from 'expo-apple-authentication'
 
 type AuthContextType = {
   setAuth: (isAuth: boolean) => void
@@ -10,6 +11,7 @@ type AuthContextType = {
   loading: boolean
   SignOut: () => void
   GoogleSignIn: (arg0: GoogleArgs) => void
+  AppleSignIn: (arg0: AppleArgs) => void
   Authenticate: () => void
 }
 
@@ -50,7 +52,19 @@ export const AuthProvider: React.FC<{
       return
     }
 
-    // setVerfied(data?.user?.verfied);
+    if (data?.user?.Type === 'APPLE' && data?.user?.AppleId) {
+      const check = await AppleAuthentication.getCredentialStateAsync(
+        data?.user?.AppleId
+      )
+
+      if (check === 0) {
+        setAuth(false)
+        setLoading(false)
+
+        return
+      }
+    }
+
     setUser(data?.user)
     setAuth(true)
     setLoading(false)
@@ -85,11 +99,36 @@ export const AuthProvider: React.FC<{
 
     setAuth(true)
     setLoading(false)
-    // setVerfied(data?.user?.verfied)
     setUser(data?.user)
 
     // if (data?.user?.id) {
     //   OneSignal.setExternalUserId(data?.user?.id)
+    // }
+
+    return [error, data]
+  }
+
+  //Apple
+  const AppleSignIn = async (values: AppleArgs): Promise<QueryResponse> => {
+    setLoading(true)
+
+    const [error, data]: any[string] = await poster(
+      '/authentication/apple',
+      values
+    )
+
+    if (error && !data) {
+      setUser(null)
+      setLoading(false)
+      return [error, data]
+    }
+
+    setAuth(true)
+    setLoading(false)
+    setUser(data?.user)
+
+    // if (data?.user?.id) {
+    //   OneSignal.setExternalUserId(data?.user?.id);
     // }
 
     return [error, data]
@@ -125,6 +164,7 @@ export const AuthProvider: React.FC<{
         user,
         Authenticate,
         GoogleSignIn,
+        AppleSignIn,
         SignOut
       }}
     >

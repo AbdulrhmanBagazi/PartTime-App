@@ -3,6 +3,7 @@ export type UserTypes = {
   verfied: boolean
   Type: string
   verificationEmail: string
+  AppleId?: string
 }
 
 export interface user {
@@ -30,4 +31,12 @@ export type GoogleArgs = {
    * specified in configure().
    */
   serverAuthCode: string | null
+}
+
+export type AppleArgs = {
+  user: String
+  email: String | null
+  appleId: String
+  identityToken: String
+  realUserStatus: number
 }

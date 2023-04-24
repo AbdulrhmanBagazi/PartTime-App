@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
+import { Request, Response } from 'express'
 
 const Authenticate = async (req: Request, res: Response) => {
   try {
-    const user = req.user;
+    const user = req.user
 
     return res.status(200).send({
       user: {
@@ -11,11 +11,12 @@ const Authenticate = async (req: Request, res: Response) => {
         Type: user.Type,
         Profile: user.Profile,
         verificationEmail: user.verificationEmail,
-      },
-    });
+        AppleId: user?.AppleId
+      }
+    })
   } catch (e: unknown) {
-    return res.sendStatus(500);
+    return res.sendStatus(500)
   }
-};
+}
 
-export default Authenticate;
+export default Authenticate

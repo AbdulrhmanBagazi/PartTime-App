@@ -4,8 +4,7 @@
   },
   "Profile": {
     "Title": "الملف الشخصي",
-    "SignIn": "تسجيل الدخول",
-    "SignOut": "تسجيل الخروج"
+    "SignIn": "تسجيل الدخول"
   },
   "App.Settings": {
     "Title": "إعدادات التطبيق",
@@ -13,10 +12,17 @@
     "DarkMode": "داكن",
     "Language": "اللغة",
     "Arabic": "عربي",
-    "English": "English"
+    "English": "English",
+    "SignOut": "تسجيل الخروج"
   },
   "SignIn": {
     "Title": "تسجيل الدخول",
-    "Google": "المتابعة بإستخدام Google"
+    "Google": "المتابعة بإستخدام Google",
+    "Apple": "المتابعة بإستخدام Apple"
+  },
+  "Alert": {
+    "Yes": "نعم",
+    "No": "لا",
+    "Alert.SignOut": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
   }
 }
