@@ -3,6 +3,20 @@
     "Title": "الرئيسية"
   },
   "Profile": {
-    "Title": "الملف الشخصي"
+    "Title": "الملف الشخصي",
+    "SignIn": "تسجيل الدخول",
+    "SignOut": "تسجيل الخروج"
+  },
+  "App.Settings": {
+    "Title": "إعدادات التطبيق",
+    "Theme": "المظهر",
+    "DarkMode": "داكن",
+    "Language": "اللغة",
+    "Arabic": "عربي",
+    "English": "English"
+  },
+  "SignIn": {
+    "Title": "تسجيل الدخول",
+    "Google": "المتابعة بإستخدام Google"
   }
 }

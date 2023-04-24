@@ -6,7 +6,15 @@ export default () => {
   const { I18n } = useI18n()
 
   return (
-    <Tabs initialRouteName="home">
+    <Tabs
+      initialRouteName="home"
+      screenOptions={{
+        headerShadowVisible: false,
+        tabBarStyle: {
+          borderTopWidth: 0
+        }
+      }}
+    >
       <Tabs.Screen
         name="home"
         options={{

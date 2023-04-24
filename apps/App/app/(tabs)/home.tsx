@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <Page>
-      <Surface style={globaStyles.surface} elevation={4} mode="flat">
+      <Surface style={globaStyles.surface} elevation={4}>
         <Text variant="displayLarge">{I18n.Home.Title}</Text>
         <Text variant="headlineMedium">{auth.toString()}</Text>
       </Surface>

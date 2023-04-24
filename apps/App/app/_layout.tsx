@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler'
 import { Stack } from 'expo-router'
 import { AuthProvider } from '../context/auth'
 import { ToggleThemeProvider } from '../context/theme'
@@ -8,11 +9,23 @@ export default () => {
     <ToggleThemeProvider>
       <I18nProvider>
         <AuthProvider>
-          <Stack initialRouteName="loading">
+          <Stack
+            initialRouteName="loading"
+            screenOptions={{
+              headerShadowVisible: false
+            }}
+          >
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen
               name="app.settings"
+              options={{
+                // Set the presentation mode to modal for our modal route.
+                presentation: 'modal'
+              }}
+            />
+            <Stack.Screen
+              name="signin"
               options={{
                 // Set the presentation mode to modal for our modal route.
                 presentation: 'modal'

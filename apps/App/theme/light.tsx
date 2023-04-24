@@ -1,6 +1,5 @@
 export const myLightTheme = {
   dark: false,
-
   colors: {
     primary: 'rgb(0, 99, 154)',
     onPrimary: 'rgb(255, 255, 255)',
@@ -28,7 +27,7 @@ export const myLightTheme = {
     outlineVariant: 'rgb(194, 199, 207)',
     shadow: 'rgb(0, 0, 0)',
     scrim: 'rgb(0, 0, 0)',
-    inverseSurface: 'rgb(47, 48, 51)',
+    inverseSurface: 'rgb(0, 0, 0)',
     inverseOnSurface: 'rgb(240, 240, 244)',
     inversePrimary: 'rgb(150, 204, 255)',
     elevation: {

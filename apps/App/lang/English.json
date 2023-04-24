@@ -3,6 +3,20 @@
     "Title": "Home"
   },
   "Profile": {
-    "Title": "Profile"
+    "Title": "Profile",
+    "SignIn": "SignIn",
+    "SignOut": "SignOut"
+  },
+  "App.Settings": {
+    "Title": "App Settings",
+    "Theme": "Theme",
+    "DarkMode": "Dark Mode",
+    "Language": "Language",
+    "Arabic": "عربي",
+    "English": "English"
+  },
+  "SignIn": {
+    "Title": "SignIn",
+    "Google": "Continue with Google"
   }
 }

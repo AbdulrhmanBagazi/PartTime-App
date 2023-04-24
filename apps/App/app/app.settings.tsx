@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native'
-import { Link, useNavigation } from 'expo-router'
+import { Link, Stack, useNavigation } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import Page from '../layout/page'
 import { useTheme } from '../context/theme'
@@ -10,23 +10,28 @@ export default function Modal() {
   const navigation = useNavigation()
   const { ToggleTheme, Dark } = useTheme()
   const isPresented = navigation.canGoBack()
-  const { Lang, ToggleI18n } = useI18n()
+  const { Lang, ToggleI18n, I18n } = useI18n()
 
   return (
     <Page>
       <StatusBar style="light" animated />
+      <Stack.Screen
+        options={{
+          title: I18n['App.Settings'].Title
+        }}
+      />
       {/* Use `../` as a simple way to navigate to the root. This is not analogous to "goBack". */}
       {!isPresented && <Link href="../">Dismiss</Link>}
 
-      <Text variant="bodyLarge">Theme</Text>
+      <Text variant="bodyLarge">{I18n['App.Settings'].Theme}</Text>
       <View style={styles.items}>
-        <Text variant="labelLarge">Dark Mode</Text>
+        <Text variant="labelLarge">{I18n['App.Settings'].DarkMode}</Text>
         <Switch value={Dark} onValueChange={ToggleTheme} />
       </View>
       <Divider style={styles.Divider} />
-      <Text variant="bodyLarge">Language</Text>
+      <Text variant="bodyLarge">{I18n['App.Settings'].Language}</Text>
       <View style={styles.items}>
-        <Text variant="labelLarge">Arabic</Text>
+        <Text variant="labelLarge">{I18n['App.Settings'].Arabic}</Text>
         <RadioButton
           value="ar"
           status={Lang === 'ar' ? 'checked' : 'unchecked'}
@@ -34,7 +39,7 @@ export default function Modal() {
         />
       </View>
       <View style={styles.items}>
-        <Text variant="labelLarge">English</Text>
+        <Text variant="labelLarge">{I18n['App.Settings'].English}</Text>
         <RadioButton
           value="en"
           status={Lang === 'en' ? 'checked' : 'unchecked'}

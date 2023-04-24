@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "672593561259",
+    "project_id": "event-app-a0ba2",
+    "storage_bucket": "event-app-a0ba2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672593561259:android:5ccaf264e888ca199959ee",
+        "android_client_info": {
+          "package_name": "org.wiseman.events"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672593561259-iblsrrns3jda90pdsqdh3rsdufbtdm28.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.wiseman.events",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "672593561259-l2tp2rgk8oafu4lkglpn6ipdgi9igqnj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNKC3Fhk992VGYIANIpPln1Ffi5WUPjnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672593561259-l2tp2rgk8oafu4lkglpn6ipdgi9igqnj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "672593561259-b3sq8r5s3h5ekmra09au2rktuto7lpng.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.wiseman.events"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

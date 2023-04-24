@@ -18,11 +18,12 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.bagazi.App",
+      "bundleIdentifier": "com.wiseman.parttime",
       "ios": {
         "config": {
           "usesNonExemptEncryption": false
-        }
+        },
+        "googleServicesFile": "./config/firebase/GoogleService-Info.plist"
       }
     },
     "android": {
@@ -30,11 +31,13 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.bagazi.App"
+      "package": "com.wiseman.parttime",
+      "googleServicesFile": "./config/firebase/google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
-    }
+    },
+    "plugins": ["@react-native-google-signin/google-signin"]
   }
 }
