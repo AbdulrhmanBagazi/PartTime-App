@@ -20,7 +20,6 @@ const SignUp = async (req: Request, res: Response) => {
         email: true,
         verfied: true,
         Type: true,
-        Profile: true,
         verificationEmail: true,
       },
     });
@@ -49,7 +48,6 @@ const SignUp = async (req: Request, res: Response) => {
         email: User.email,
         verfied: User.verfied,
         Type: User.Type,
-        Profile: User.Profile,
         verificationEmail: User.verificationEmail,
       },
     });

@@ -5,10 +5,11 @@ import {
 } from '@react-native-google-signin/google-signin'
 import { Button } from 'react-native-paper'
 import { Image } from 'react-native'
-import { webClientId, iosClientId } from '../config/app.config'
+import { webClientId } from '../config/app.config'
+import { useAuth } from '../context/auth'
 
 const MGoogleButton: React.FC<{ text: String }> = ({ text }) => {
-  // const {authLoading, GoogleSignIn} = UseAuth() as AuthenticatedTypes;
+  const { loading, GoogleSignIn } = useAuth()
 
   GoogleSignin.configure({
     webClientId: webClientId,
@@ -19,27 +20,26 @@ const MGoogleButton: React.FC<{ text: String }> = ({ text }) => {
     try {
       await GoogleSignin.hasPlayServices()
       const userInfo = await GoogleSignin.signIn()
-      console.log(userInfo)
-      // return GoogleSignIn(userInfo)
+
+      return GoogleSignIn(userInfo)
     } catch (error: any) {
-      //   if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-      //     //user cancelled the login flow
-      //     // console.log('user cancelled the login flow');
-      //     return
-      //   } else if (error.code === statusCodes.IN_PROGRESS) {
-      //     // operation (e.g. sign in) is in progress already
-      //     // console.log('operation (e.g. sign in) is in progress already');
-      //     return
-      //   } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-      //     // play services not available or outdated
-      //     // console.log('play services not available or outdated');
-      //     return
-      //   } else {
-      //     // some other error happened
-      //     // console.log(error);
-      //     return
-      //   }
-      console.log({ error })
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        //user cancelled the login flow
+        console.log('user cancelled the login flow')
+        return
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+        console.log('operation (e.g. sign in) is in progress already')
+        return
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+        console.log('play services not available or outdated')
+        return
+      } else {
+        // some other error happened
+        console.log(error)
+        return
+      }
     }
   }
 
@@ -51,7 +51,7 @@ const MGoogleButton: React.FC<{ text: String }> = ({ text }) => {
       // color="#FFFFFF"
       mode="contained"
       uppercase={false}
-      //   disabled={authLoading}
+      disabled={loading}
       icon={({ size }) => (
         <Image
           source={require('../assets/google-logo.png')}

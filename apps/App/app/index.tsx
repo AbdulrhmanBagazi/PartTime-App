@@ -1,20 +1,32 @@
 import { ActivityIndicator, View } from 'react-native'
 import { useAuth } from '../context/auth'
-import { useRouter } from 'expo-router'
+import { SplashScreen, useRootNavigation, useRouter } from 'expo-router'
 import { useEffect } from 'react'
 import Page from '../layout/page'
 
 export default function Loading() {
-  const { setAuth } = useAuth()
+  const { auth, loading, Authenticate } = useAuth()
   const router = useRouter()
+  const ExpoRouter = useRootNavigation()
 
   useEffect(() => {
     //check if user authenticated
-    setTimeout(() => {
-      setAuth(false)
-      return router.replace('(tabs)/home')
-    }, 2000)
+    Authenticate()
   }, [])
+
+  useEffect(() => {
+    if (auth) {
+      return router.replace('(tabs)/home')
+    }
+
+    if (!auth && !loading) {
+      return router.replace('(tabs)/home')
+    }
+  }, [auth, loading])
+
+  if (!ExpoRouter.isReady()) {
+    return <SplashScreen />
+  }
 
   return (
     <Page scrollEnabled={false}>
