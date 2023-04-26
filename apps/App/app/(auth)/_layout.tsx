@@ -1,0 +1,30 @@
+import { Stack } from 'expo-router'
+import { useI18n } from '../../context/i18n'
+
+export default () => {
+  const { I18n } = useI18n()
+
+  return (
+    <Stack
+      initialRouteName="signin"
+      screenOptions={{
+        headerShadowVisible: false
+      }}
+    >
+      <Stack.Screen
+        name="signin"
+        options={{
+          title: I18n.SignIn.Title,
+          presentation: 'modal'
+        }}
+      />
+      <Stack.Screen
+        name="signup"
+        options={{
+          title: I18n.SignUp.Title,
+          presentation: 'modal'
+        }}
+      />
+    </Stack>
+  )
+}

@@ -1,6 +1,6 @@
-import { Context } from '../../../../../context';
-import { createUserProfile } from './types';
-import { gql } from 'apollo-server';
+import { Context } from '../../../../../context'
+import { createUserProfile } from './types'
+import gql from 'graphql-tag'
 
 export const Create_Profile_TypeDefs = gql`
   type Query {
@@ -33,10 +33,14 @@ export const Create_Profile_TypeDefs = gql`
   }
 
   scalar DateTime
-`;
+`
 
 export const Create_Profile_Mutation = {
-  Create_UserProfile: async (_parent, args: createUserProfile, context: Context) => {
+  Create_UserProfile: async (
+    _parent,
+    args: createUserProfile,
+    context: Context
+  ) => {
     const CreateProfile = await context.prisma.profile.create({
       data: {
         firstName: args.firstName,
@@ -45,10 +49,10 @@ export const Create_Profile_Mutation = {
         nationalID: args.nationalID,
         dateOfBirth: args.dateOfBirth,
         gender: args.gender,
-        userId: context.req.user.id,
-      },
-    });
+        userId: context.req.user.id
+      }
+    })
 
-    return CreateProfile;
-  },
-};
+    return CreateProfile
+  }
+}

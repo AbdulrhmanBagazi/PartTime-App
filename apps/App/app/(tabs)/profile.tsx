@@ -15,13 +15,14 @@ export default function Profile() {
     <Page>
       <View style={{ flex: 1 }}>
         <Text variant="bodyLarge">{user?.email}</Text>
+        <Text variant="bodyLarge">{user?.verfied.toString()}</Text>
       </View>
 
       {auth ? null : (
         <Button
           icon="login"
-          mode="elevated"
-          onPress={() => router.push('/signin')}
+          mode="contained"
+          onPress={() => router.push('/(auth)/signin')}
           disabled={loading}
         >
           {I18n.Profile.SignIn}

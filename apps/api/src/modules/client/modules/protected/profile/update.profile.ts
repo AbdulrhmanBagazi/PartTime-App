@@ -1,6 +1,6 @@
-import { Context } from '../../../../../context';
-import { updateUserProfile } from './types';
-import { gql } from 'apollo-server';
+import { Context } from '../../../../../context'
+import { updateUserProfile } from './types'
+import gql from 'graphql-tag'
 
 export const Update_Profile_TypeDefs = gql`
   type Query {
@@ -16,13 +16,17 @@ export const Update_Profile_TypeDefs = gql`
       gender: String
     ): Profile
   }
-`;
+`
 
 export const Update_Profile_Mutation = {
-  Update_UserProfile: async (_parent, args: updateUserProfile, context: Context) => {
+  Update_UserProfile: async (
+    _parent,
+    args: updateUserProfile,
+    context: Context
+  ) => {
     const UpdateProfile = await context.prisma.profile.update({
       where: {
-        userId: context.req.user.id,
+        userId: context.req.user.id
       },
       data: {
         firstName: args.firstName,
@@ -30,10 +34,10 @@ export const Update_Profile_Mutation = {
         nationality: args.nationality,
         nationalID: args.nationalID,
         dateOfBirth: args.dateOfBirth,
-        gender: args.gender,
-      },
-    });
+        gender: args.gender
+      }
+    })
 
-    return UpdateProfile;
-  },
-};
+    return UpdateProfile
+  }
+}

@@ -6,7 +6,6 @@ import { useTheme } from '../context/theme'
 import { Text, Switch, Divider, RadioButton, Button } from 'react-native-paper'
 import { useI18n } from '../context/i18n'
 import { useAuth } from '../context/auth'
-import { useTheme as useThemePaper } from 'react-native-paper'
 
 export default function Modal() {
   const navigation = useNavigation()
@@ -14,7 +13,6 @@ export default function Modal() {
   const { SignOut, loading, auth } = useAuth()
   const isPresented = navigation.canGoBack()
   const { Lang, ToggleI18n, I18n } = useI18n()
-  const theme = useThemePaper()
 
   return (
     <Page>
@@ -52,33 +50,30 @@ export default function Modal() {
             onPress={() => ToggleI18n('en')}
           />
         </View>
-        <Divider />
+        <Divider style={styles.Divider} />
+        <View style={styles.signou}>
+          <Button
+            icon="login"
+            mode="contained"
+            onPress={() =>
+              Alert.alert(
+                I18n['App.Settings'].SignOut,
+                I18n.Alert['Alert.SignOut'],
+                [
+                  {
+                    text: I18n.Alert.No,
+                    style: 'cancel'
+                  },
+                  { text: I18n.Alert.Yes, onPress: () => SignOut() }
+                ]
+              )
+            }
+            disabled={loading || !auth}
+          >
+            {I18n['App.Settings'].SignOut}
+          </Button>
+        </View>
       </View>
-
-      {auth ? (
-        <Button
-          icon="login"
-          mode="elevated"
-          onPress={() =>
-            Alert.alert(
-              I18n['App.Settings'].SignOut,
-              I18n.Alert['Alert.SignOut'],
-              [
-                {
-                  text: I18n.Alert.No,
-                  style: 'cancel'
-                },
-                { text: I18n.Alert.Yes, onPress: () => SignOut() }
-              ]
-            )
-          }
-          disabled={loading}
-          style={{ marginBottom: 30 }}
-          textColor={theme.colors.error}
-        >
-          {I18n['App.Settings'].SignOut}
-        </Button>
-      ) : null}
     </Page>
   )
 }
@@ -89,6 +84,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 5
+  },
+  signou: {
+    padding: 5,
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
   },
   Divider: {
     marginVertical: 10

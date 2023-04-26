@@ -1,6 +1,6 @@
-import { Context } from '../../../../../context';
-import { gql } from 'apollo-server';
-import { createApplicants } from './types';
+import { Context } from '../../../../../context'
+import gql from 'graphql-tag'
+import { createApplicants } from './types'
 
 export const Create_Applicants_TypeDefs = gql`
   type Query {
@@ -20,7 +20,10 @@ export const Create_Applicants_TypeDefs = gql`
     ): Create_ApplicantsResult
   }
 
-  union Create_ApplicantsResult = Applicants | CreateApplicantsExsist | CreateApplicantsUnknown
+  union Create_ApplicantsResult =
+      Applicants
+    | CreateApplicantsExsist
+    | CreateApplicantsUnknown
 
   enum Applicants_Status {
     CANCELED
@@ -59,23 +62,27 @@ export const Create_Applicants_TypeDefs = gql`
   }
 
   scalar DateTime
-`;
+`
 
 export const Create_Applicants_Mutation = {
-  Create_Applicants: async (_parent, args: createApplicants, context: Context) => {
+  Create_Applicants: async (
+    _parent: any,
+    args: createApplicants,
+    context: Context
+  ) => {
     try {
       const check = await context.prisma.applicants.findFirst({
         where: {
           userId: context.req.user.id,
-          eventId: args.eventId,
-        },
-      });
+          eventId: args.eventId
+        }
+      })
 
       if (check) {
         return {
           __typename: 'CreateApplicantsExsist',
-          message: 'exsist',
-        };
+          message: 'exsist'
+        }
       }
 
       const Create_Applicants = await context.prisma.applicants.create({
@@ -89,16 +96,16 @@ export const Create_Applicants_Mutation = {
           nationality: args.nationality,
           nationalID: args.nationalID,
           dateOfBirth: args.dateOfBirth,
-          gender: args.gender,
-        },
-      });
+          gender: args.gender
+        }
+      })
 
-      return { __typename: 'Applicants', ...Create_Applicants };
+      return { __typename: 'Applicants', ...Create_Applicants }
     } catch (e) {
       return {
         __typename: 'CreateApplicantsUnknown',
-        message: 'unknown error',
-      };
+        message: 'unknown error'
+      }
     }
-  },
-};
+  }
+}

@@ -1,6 +1,6 @@
-import { gql } from 'apollo-server';
-import { SectionType } from '../types';
-import { Context } from '../../../../../../context';
+import gql from 'graphql-tag'
+import { SectionType } from '../types'
+import { Context } from '../../../../../../context'
 
 export const list_app_section_TypeDefs = gql`
   type Query {
@@ -26,21 +26,21 @@ export const list_app_section_TypeDefs = gql`
   }
 
   scalar DateTime
-`;
+`
 
 export const list_app_section_Query = {
   app_section_list: async (_parent, _args, context: Context) => {
     const data = await context.prisma.app_section.findMany({
       orderBy: {
-        createdAt: 'desc',
+        createdAt: 'desc'
       },
       where: {
-        published: true,
-      },
-    });
-    return data;
-  },
-};
+        published: true
+      }
+    })
+    return data
+  }
+}
 
 export const list_app_section_Resolver = {
   app_section: {
@@ -50,13 +50,13 @@ export const list_app_section_Resolver = {
           published: true,
           app_sectionId: parent.id,
           details: {
-            isEmpty: false,
+            isEmpty: false
           },
           details_en: {
-            isEmpty: false,
-          },
-        },
-      });
-    },
-  },
-};
+            isEmpty: false
+          }
+        }
+      })
+    }
+  }
+}

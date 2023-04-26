@@ -1,12 +1,9 @@
-import React from 'react'
-import {
-  GoogleSignin,
-  statusCodes
-} from '@react-native-google-signin/google-signin'
+import React, { useEffect } from 'react'
 import { Button } from 'react-native-paper'
 import { Image, View } from 'react-native'
-import { webClientId } from '../config/app.config'
+import { androidClientId, iosClientId } from '../config/app.config'
 import { useAuth } from '../context/auth'
+import * as Google from 'expo-auth-session/providers/google'
 
 const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
   text,
@@ -14,51 +11,23 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
 }) => {
   const { loading, GoogleSignIn } = useAuth()
 
-  GoogleSignin.configure({
-    webClientId: webClientId,
-    offlineAccess: false
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId: androidClientId,
+    iosClientId: iosClientId
   })
 
-  const Sign = async () => {
-    try {
-      await GoogleSignin.hasPlayServices()
-      const userInfo = await GoogleSignin.signIn()
-
-      return GoogleSignIn(userInfo)
-    } catch (error: any) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        //user cancelled the login flow
-        console.log('user cancelled the login flow')
-        return
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (e.g. sign in) is in progress already
-        console.log('operation (e.g. sign in) is in progress already')
-        return
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
-        console.log('play services not available or outdated')
-        return
-      } else {
-        // some other error happened
-        console.log(error)
-        return
-      }
+  useEffect(() => {
+    if (response?.type === 'success') {
+      GoogleSignIn({ idToken: response.authentication.idToken })
     }
-  }
+  }, [response])
 
   return (
-    // <GoogleSigninButton
-    //   style={{ width: 192, height: 48, alignSelf: 'center' }}
-    //   size={GoogleSigninButton.Size.Wide}
-    //   color={
-    //     dark ? GoogleSigninButton.Color.Dark : GoogleSigninButton.Color.Light
-    //   }
-    //   onPress={() => Sign()}
-    //   disabled={loading}
-    // />
     <Button
-      onPress={() => Sign()}
-      mode="elevated"
+      onPress={() => {
+        promptAsync()
+      }}
+      mode="contained"
       // labelStyle={styles.label}
       buttonColor={dark ? '#FFFFFF' : '#4285F4'}
       textColor={dark ? 'black' : 'white'}
@@ -87,7 +56,8 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
             source={require('../assets/google-logo.png')}
             style={{
               width: size,
-              height: size
+              height: size,
+              backgroundColor: 'white'
             }}
           />
         </View>

@@ -1,6 +1,6 @@
-import { Context } from '../../../../../context';
-import { updateUserProfile } from './types';
-import { gql } from 'apollo-server';
+import { Context } from '../../../../../context'
+import { updateUserProfile } from './types'
+import gql from 'graphql-tag'
 
 export const Contact_Profile_TypeDefs = gql`
   type Query {
@@ -9,20 +9,24 @@ export const Contact_Profile_TypeDefs = gql`
   type Mutation {
     Contact_UserProfile(phone: String, whatsapp: String): Profile
   }
-`;
+`
 
 export const Contact_Profile_Mutation = {
-  Contact_UserProfile: async (_parent, args: updateUserProfile, context: Context) => {
+  Contact_UserProfile: async (
+    _parent,
+    args: updateUserProfile,
+    context: Context
+  ) => {
     const addContactProfile = await context.prisma.profile.update({
       where: {
-        userId: context.req.user.id,
+        userId: context.req.user.id
       },
       data: {
         phone: args.phone,
-        whatsapp: args.whatsapp,
-      },
-    });
+        whatsapp: args.whatsapp
+      }
+    })
 
-    return addContactProfile;
-  },
-};
+    return addContactProfile
+  }
+}

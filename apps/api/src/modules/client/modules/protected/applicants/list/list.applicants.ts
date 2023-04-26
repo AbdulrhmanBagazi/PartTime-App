@@ -1,10 +1,15 @@
-import { Context } from '../../../../../../context';
-import { applicantsFilterType, Order } from '../types';
-import { gql } from 'apollo-server';
+import { Context } from '../../../../../../context'
+import { applicantsFilterType, Order } from '../types'
+import gql from 'graphql-tag'
 
 export const list_Applicants_TypeDefs = gql`
   type Query {
-    applicants_list(page: Int, perPage: Int, sortOrder: Order, filter: Filters): [Applicants!]!
+    applicants_list(
+      page: Int
+      perPage: Int
+      sortOrder: Order
+      filter: Filters
+    ): [Applicants!]!
     applicants_list_meta: ListMetadata
   }
 
@@ -86,99 +91,108 @@ export const list_Applicants_TypeDefs = gql`
   }
 
   scalar DateTime
-`;
+`
 
 export const list_Applicants_Query = {
   applicants_list: async (
     _parent,
-    args: { page: number; perPage: number; sortOrder: Order; filter: applicantsFilterType },
-    context: Context,
+    args: {
+      page: number
+      perPage: number
+      sortOrder: Order
+      filter: applicantsFilterType
+    },
+    context: Context
   ) => {
-    const order = args.sortOrder;
+    const order = args.sortOrder
 
     const data = await context.prisma.applicants.findMany({
       skip: args.page * args.perPage,
       take: args.perPage,
       orderBy: {
-        createdAt: order,
+        createdAt: order
       },
       where: {
         status: args.filter?.status,
-        userId: context.req.user.id,
+        userId: context.req.user.id
       },
       include: {
         company: true,
         Event: true,
         job: true,
-        shift: true,
-      },
-    });
+        shift: true
+      }
+    })
     // throw Error;
-    return data;
+    return data
   },
-  applicants_list_meta: async (_parent, args: { filter: applicantsFilterType }, context: Context) => {
+  applicants_list_meta: async (
+    _parent,
+    args: { filter: applicantsFilterType },
+    context: Context
+  ) => {
     const cal = await context.prisma.applicants.aggregate({
       where: {
         status: args.filter?.status,
-        userId: context.req.user.id,
+        userId: context.req.user.id
       },
       _count: {
-        id: true,
-      },
-    });
+        id: true
+      }
+    })
 
-    const count = cal._count.id;
+    const count = cal._count.id
 
-    return { count };
-  },
-};
+    return { count }
+  }
+}
 
 export const list_Applicants_Resolver = {
   Applicants: {
     event: async (parent: applicantsFilterType, _args, context: Context) => {
       const event = await context.prisma.events.findFirst({
-        where: { id: parent.eventId },
-      });
+        where: { id: parent.eventId }
+      })
 
       return {
         title: event?.title,
         title_en: event?.title_en,
         image_url: event?.image_url,
         content: event?.content,
-        content_en: event?.content_en,
-      };
+        content_en: event?.content_en
+      }
     },
     company: async (parent: applicantsFilterType, _args, context: Context) => {
       const company = await context.prisma.companies.findFirst({
-        where: { id: parent.companyId },
-      });
+        where: { id: parent.companyId }
+      })
 
       return {
         name: company?.name,
-        logo_url: company?.logo_url,
-      };
+        logo_url: company?.logo_url
+      }
     },
     shift: async (parent: applicantsFilterType, _args, context: Context) => {
       const shift = await context.prisma.event_Shifts.findFirst({
-        where: { id: parent.shiftId },
-      });
+        where: { id: parent.shiftId }
+      })
 
       return {
         start_time: shift?.start_time,
-        end_time: shift?.end_time,
-      };
+        end_time: shift?.end_time
+      }
     },
     job: async (parent: applicantsFilterType, _args, context: Context) => {
       const job = await context.prisma.event_Jobs.findFirst({
-        where: { id: parent.jobId },
-      });
+        where: { id: parent.jobId }
+      })
 
       return {
         title: job?.title,
         title_en: job?.title_en,
         rate: job?.rate,
-        rate_type: job?.rate_type,
-      };
-    },
-  },
-};
+        rate_type: job?.rate_type
+      }
+    }
+  }
+}

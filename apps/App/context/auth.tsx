@@ -1,6 +1,11 @@
-import React from 'react'
-import { AppleArgs, GoogleArgs, QueryResponse, UserTypes } from '../types/types'
-import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import React, { useEffect } from 'react'
+import {
+  AppleArgs,
+  GoogleArgs,
+  QueryResponse,
+  SignTypes,
+  UserTypes
+} from '../types/types'
 import { fetcher, poster } from '../api/auth.api'
 import * as AppleAuthentication from 'expo-apple-authentication'
 
@@ -13,6 +18,8 @@ type AuthContextType = {
   GoogleSignIn: (arg0: GoogleArgs) => void
   AppleSignIn: (arg0: AppleArgs) => void
   Authenticate: () => void
+  SignIn: (arg0: SignTypes) => void
+  SignUp: (arg0: SignTypes) => void
 }
 
 const AuthContext = React.createContext<AuthContextType>(null)
@@ -28,6 +35,11 @@ export const AuthProvider: React.FC<{
   const [auth, setAuth] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
   const [user, setUser] = React.useState(null)
+
+  useEffect(() => {
+    //check if user authenticated
+    Authenticate()
+  }, [])
 
   const Authenticate = async () => {
     setLoading(true)
@@ -134,6 +146,58 @@ export const AuthProvider: React.FC<{
     return [error, data]
   }
 
+  //Email
+
+  const SignIn = async (values: SignTypes): Promise<QueryResponse> => {
+    setLoading(true)
+
+    const [error, data]: any[string] = await poster(
+      '/authentication/signin',
+      values
+    )
+
+    if (error && !data) {
+      setUser(null)
+      setLoading(false)
+      return [error, data]
+    }
+
+    setAuth(true)
+    setLoading(false)
+    setUser(data?.user)
+
+    // if (data?.user?.id) {
+    //   OneSignal.setExternalUserId(data?.user?.id);
+    // }
+
+    return [error, data]
+  }
+
+  const SignUp = async (values: SignTypes) => {
+    setLoading(true)
+
+    const [error, data]: any[string] = await poster(
+      '/authentication/signup',
+      values
+    )
+
+    if (error && !data) {
+      setUser(null)
+      setLoading(false)
+      return [error, data]
+    }
+
+    setAuth(true)
+    setLoading(false)
+    setUser(data?.user)
+
+    // if (data?.user?.id) {
+    //   OneSignal.setExternalUserId(data?.user?.id)
+    // }
+
+    return [error, data]
+  }
+
   const SignOut = async () => {
     setLoading(true)
 
@@ -141,7 +205,7 @@ export const AuthProvider: React.FC<{
 
     //if google account
     if (user?.Type === 'GOOGLE') {
-      await GoogleSignin.signOut()
+      // await GoogleSignin.signOut()
     }
 
     if (error && !data) {
@@ -165,6 +229,8 @@ export const AuthProvider: React.FC<{
         Authenticate,
         GoogleSignIn,
         AppleSignIn,
+        SignIn,
+        SignUp,
         SignOut
       }}
     >

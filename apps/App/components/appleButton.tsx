@@ -10,7 +10,7 @@ const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
 
   return (
     <Button
-      mode="elevated"
+      mode="contained"
       onPress={async () => {
         try {
           const credential = await AppleAuthentication.signInAsync({

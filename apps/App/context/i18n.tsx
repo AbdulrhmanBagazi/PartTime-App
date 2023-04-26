@@ -8,7 +8,7 @@ type ar = 'ar'
 type en = 'en'
 
 type Language = ar | en
-type I18n = typeof Arabic | typeof English
+export type I18n = typeof Arabic | typeof English
 
 type I18nContextType = {
   ToggleI18n: (Lang: Language) => void

@@ -49,9 +49,6 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "plugins": [
-      "@react-native-google-signin/google-signin",
-      "expo-apple-authentication"
-    ]
+    "plugins": ["expo-apple-authentication"]
   }
 }

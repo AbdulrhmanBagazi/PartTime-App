@@ -16,21 +16,7 @@ export type QueryResponse = [
 ]
 
 export type GoogleArgs = {
-  user: {
-    id: string
-    name: string | null
-    email: string
-    photo: string | null
-    familyName: string | null
-    givenName: string | null
-  }
-  scopes?: string[]
-  idToken: string | null
-  /**
-   * Not null only if a valid webClientId and offlineAccess: true was
-   * specified in configure().
-   */
-  serverAuthCode: string | null
+  idToken: string
 }
 
 export type AppleArgs = {
@@ -39,4 +25,22 @@ export type AppleArgs = {
   appleId: String
   identityToken: String
   realUserStatus: number
+}
+
+export type SignTypes = {
+  email: string
+  password: string
+}
+
+export type AuthenticatedTypes = {
+  setAuth: (isAuth: boolean) => void
+  auth: boolean
+  user: UserTypes
+  loading: boolean
+  SignOut: () => void
+  GoogleSignIn: (arg0: GoogleArgs) => void
+  AppleSignIn: (arg0: AppleArgs) => void
+  Authenticate: () => void
+  SignIn: (arg0: SignTypes) => QueryResponse
+  SignUp: (arg0: SignTypes) => QueryResponse
 }

@@ -5,14 +5,9 @@ import { useEffect } from 'react'
 import Page from '../layout/page'
 
 export default function Loading() {
-  const { auth, loading, Authenticate } = useAuth()
+  const { auth, loading } = useAuth()
   const router = useRouter()
   const ExpoRouter = useRootNavigation()
-
-  useEffect(() => {
-    //check if user authenticated
-    Authenticate()
-  }, [])
 
   useEffect(() => {
     if (auth) {

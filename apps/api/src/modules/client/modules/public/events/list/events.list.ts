@@ -1,10 +1,15 @@
-import { Context } from '../../../../../../context';
-import { gql } from 'apollo-server';
-import { eventType, Order } from '../types';
+import { Context } from '../../../../../../context'
+import gql from 'graphql-tag'
+import { eventType, Order } from '../types'
 
 export const list_Events_TypeDefs = gql`
   type Query {
-    Events_list(page: Int, perPage: Int, sortOrder: Order, app_sectionId: String!): [Events!]!
+    Events_list(
+      page: Int
+      perPage: Int
+      sortOrder: Order
+      app_sectionId: String!
+    ): [Events!]!
     Events_list_meta(app_sectionId: String): ListMetadata
   }
 
@@ -82,81 +87,90 @@ export const list_Events_TypeDefs = gql`
 
   scalar DateTime
   scalar JSON
-`;
+`
 
 export const list_Events_Query = {
   Events_list: async (
     _parent,
-    args: { page: number; perPage: number; sortOrder: Order; app_sectionId: string },
-    context: Context,
+    args: {
+      page: number
+      perPage: number
+      sortOrder: Order
+      app_sectionId: string
+    },
+    context: Context
   ) => {
-    const order = args.sortOrder;
+    const order = args.sortOrder
 
     const data = await context.prisma.events.findMany({
       skip: args.page * args.perPage,
       take: args.perPage,
       orderBy: {
-        createdAt: order,
+        createdAt: order
       },
       where: {
         published: true,
         app_sectionId: args.app_sectionId,
         details: {
-          isEmpty: false,
+          isEmpty: false
         },
         details_en: {
-          isEmpty: false,
-        },
+          isEmpty: false
+        }
       },
       include: {
         Event_Jobs: true,
-        Event_Shifts: true,
-      },
-    });
-    return data;
+        Event_Shifts: true
+      }
+    })
+    return data
   },
   // eslint-disable-next-line @typescript-eslint/ban-types
-  Events_list_meta: async (_parent, args: { app_sectionId: string }, context: Context) => {
+  Events_list_meta: async (
+    _parent,
+    args: { app_sectionId: string },
+    context: Context
+  ) => {
     const cal = await context.prisma.events.aggregate({
       _count: {
-        id: true,
+        id: true
       },
       where: {
         published: true,
         app_sectionId: args.app_sectionId,
         details: {
-          isEmpty: false,
+          isEmpty: false
         },
         details_en: {
-          isEmpty: false,
-        },
-      },
-    });
+          isEmpty: false
+        }
+      }
+    })
 
-    const total = cal._count.id;
+    const total = cal._count.id
 
-    return { total };
-  },
-};
+    return { total }
+  }
+}
 
 export const list_Events_Resolver = {
   Events: {
     companyLogo: async (parent: eventType, _args, context: Context) => {
       const Logo = await context.prisma.companies.findFirst({
-        where: { id: parent.companyId },
-      });
+        where: { id: parent.companyId }
+      })
 
-      return Logo?.logo_url;
+      return Logo?.logo_url
     },
     Location: async (parent: eventType, _args, context: Context) => {
       const Location = await context.prisma.location.findFirst({
-        where: { id: parent.locationId },
-      });
+        where: { id: parent.locationId }
+      })
 
       return {
         title: Location?.title,
-        title_en: Location?.title_en,
-      };
-    },
-  },
-};
+        title_en: Location?.title_en
+      }
+    }
+  }
+}
