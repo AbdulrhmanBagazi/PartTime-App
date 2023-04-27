@@ -5,6 +5,7 @@ import { View } from 'react-native'
 import { useSnack } from '../../context/snack'
 import { useTheme } from '../../context/theme'
 import { Image } from 'expo-image'
+import StatusCode from '../../components/statusCode'
 
 export default function Home() {
   const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <View style={{ flex: 1 }}>
       <Page>
+        <StatusCode />
         <Card mode="contained">
           <Card.Title
             title="Card contained"

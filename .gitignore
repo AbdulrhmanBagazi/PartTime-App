@@ -19,6 +19,13 @@ out/
 # expo
 .expo/
 dist/
+ios/
+ios/*
+ios/main.jsbundle
+ios/**/*
+android/
+android/*
+android/**/*
 
 # production
 build
