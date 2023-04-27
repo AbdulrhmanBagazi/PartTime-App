@@ -1,6 +1,6 @@
 {
   "expo": {
-    "scheme": "acme",
+    "scheme": "App",
     "name": "App",
     "slug": "App",
     "version": "1.0.0",
@@ -19,7 +19,8 @@
       "supportsRTL": true,
       "eas": {
         "projectId": "66bef317-6325-498f-9228-861c74e2c626"
-      }
+      },
+      "oneSignalAppId": "7bcd247a-1208-4225-93c4-5716ee213644"
     },
     "splash": {
       "image": "./assets/splash.png",
@@ -49,6 +50,14 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "plugins": ["expo-apple-authentication"]
+    "plugins": [
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ],
+      "expo-apple-authentication"
+    ]
   }
 }

@@ -27,7 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>acme</string>
+          <string>App</string>
           <string>com.wiseman.parttime</string>
         </array>
       </dict>
@@ -49,6 +49,10 @@
         </dict>
       </dict>
     </dict>
+    <key>UIBackgroundModes</key>
+    <array>
+      <string>remote-notification</string>
+    </array>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>

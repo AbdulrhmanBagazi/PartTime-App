@@ -89,6 +89,7 @@ const EmailForm: React.FC<{ I18n: I18n }> = ({ I18n }) => {
         mode="outlined"
         error={errors.email}
         disabled={loading}
+        keyboardType="email-address"
       />
       <TextInput
         label={I18n.SignIn.Password}
@@ -100,7 +101,6 @@ const EmailForm: React.FC<{ I18n: I18n }> = ({ I18n }) => {
         error={errors.password}
         disabled={loading}
         secureTextEntry
-        keyboardType="email-address"
       />
       {incorrect ? (
         <HelperText type="error" visible={incorrect}>

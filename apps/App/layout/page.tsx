@@ -20,24 +20,24 @@ export default function Page(props: {
   const theme = useTheme()
 
   return (
-    <ScrollView
-      style={styles.ScrollView}
-      contentContainerStyle={{ flex: 1 }}
-      scrollEnabled={props.scrollEnabled}
-    >
-      <View
-        style={[styles.container, { backgroundColor: theme.colors.background }]}
+    <View style={[styles.container]}>
+      <ScrollView
+        style={styles.ScrollView}
+        contentContainerStyle={{
+          backgroundColor: theme.colors.background,
+          padding: 10
+        }}
+        scrollEnabled={props.scrollEnabled}
       >
         {props.children}
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 10
+    flex: 1
   },
   ScrollView: {
     flexGrow: 1

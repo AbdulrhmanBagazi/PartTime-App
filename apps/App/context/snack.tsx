@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Snackbar } from 'react-native-paper'
+import { Portal, Snackbar } from 'react-native-paper'
 import { useI18n } from './i18n'
 
 type Text = 'SignOut'

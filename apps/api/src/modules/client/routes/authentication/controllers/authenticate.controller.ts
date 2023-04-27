@@ -6,6 +6,7 @@ const Authenticate = async (req: Request, res: Response) => {
 
     return res.status(200).send({
       user: {
+        id: user.id,
         email: user.email,
         verfied: user.verfied,
         Type: user.Type,

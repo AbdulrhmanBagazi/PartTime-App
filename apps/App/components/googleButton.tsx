@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react'
 import { Button } from 'react-native-paper'
-import { Image, View } from 'react-native'
-import { androidClientId, iosClientId } from '../config/app.config'
+import { View } from 'react-native'
+import {
+  androidClientId,
+  expoClientId,
+  iosClientId
+} from '../config/app.config'
 import { useAuth } from '../context/auth'
 import * as Google from 'expo-auth-session/providers/google'
+import { Image } from 'expo-image'
 
 const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
   text,
@@ -13,7 +18,8 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: androidClientId,
-    iosClientId: iosClientId
+    iosClientId: iosClientId,
+    expoClientId: expoClientId
   })
 
   useEffect(() => {
@@ -48,7 +54,8 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
             alignItems: 'center',
             marginLeft: -15,
             margin: 1,
-            borderRadius: 3,
+            borderTopLeftRadius: 20,
+            borderBottomLeftRadius: 20,
             opacity: loading ? 0.25 : 1
           }}
         >
@@ -59,6 +66,7 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
               height: size,
               backgroundColor: 'white'
             }}
+            transition={1000}
           />
         </View>
       )}

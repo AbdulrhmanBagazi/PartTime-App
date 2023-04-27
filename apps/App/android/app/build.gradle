@@ -113,7 +113,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.app"
+    namespace 'com.wiseman.parttime'
     defaultConfig {
         applicationId 'com.wiseman.parttime'
         minSdkVersion rootProject.ext.minSdkVersion

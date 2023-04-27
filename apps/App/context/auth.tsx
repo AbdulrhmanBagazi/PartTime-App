@@ -8,6 +8,8 @@ import {
 } from '../types/types'
 import { fetcher, poster } from '../api/auth.api'
 import * as AppleAuthentication from 'expo-apple-authentication'
+import { Platform } from 'react-native'
+import OneSignal from 'react-native-onesignal'
 
 type AuthContextType = {
   setAuth: (isAuth: boolean) => void
@@ -50,17 +52,17 @@ export const AuthProvider: React.FC<{
       setAuth(false)
       setLoading(false)
 
-      // setTimeout(() => {
-      //   // promptForPushNotificationsWithUserResponse will show the native iOS or Android notification permission prompt.
-      //   // We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 7)
-      //   if (Platform.OS === 'ios') {
-      //     OneSignal.promptForPushNotificationsWithUserResponse(response => {
-      //       if (!response) {
-      //         OneSignal.disablePush(true);
-      //       }
-      //     });
-      //   }
-      // }, 1000);
+      setTimeout(() => {
+        // promptForPushNotificationsWithUserResponse will show the native iOS or Android notification permission prompt.
+        // We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 7)
+        if (Platform.OS === 'ios') {
+          OneSignal.promptForPushNotificationsWithUserResponse((response) => {
+            if (!response) {
+              OneSignal.disablePush(true)
+            }
+          })
+        }
+      }, 1000)
       return
     }
 
@@ -83,13 +85,13 @@ export const AuthProvider: React.FC<{
 
     // promptForPushNotificationsWithUserResponse will show the native iOS or Android notification permission prompt.
     // We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 7)
-    // if (Platform.OS === 'ios') {
-    //   OneSignal.promptForPushNotificationsWithUserResponse(response => {
-    //     if (!response) {
-    //       OneSignal.disablePush(true);
-    //     }
-    //   });
-    // }
+    if (Platform.OS === 'ios') {
+      OneSignal.promptForPushNotificationsWithUserResponse((response) => {
+        if (!response) {
+          OneSignal.disablePush(true)
+        }
+      })
+    }
 
     return
   }
@@ -113,9 +115,9 @@ export const AuthProvider: React.FC<{
     setLoading(false)
     setUser(data?.user)
 
-    // if (data?.user?.id) {
-    //   OneSignal.setExternalUserId(data?.user?.id)
-    // }
+    if (data?.user?.id) {
+      OneSignal.setExternalUserId(data?.user?.id)
+    }
 
     return [error, data]
   }
@@ -139,9 +141,9 @@ export const AuthProvider: React.FC<{
     setLoading(false)
     setUser(data?.user)
 
-    // if (data?.user?.id) {
-    //   OneSignal.setExternalUserId(data?.user?.id);
-    // }
+    if (data?.user?.id) {
+      OneSignal.setExternalUserId(data?.user?.id)
+    }
 
     return [error, data]
   }
@@ -166,9 +168,11 @@ export const AuthProvider: React.FC<{
     setLoading(false)
     setUser(data?.user)
 
-    // if (data?.user?.id) {
-    //   OneSignal.setExternalUserId(data?.user?.id);
-    // }
+    console.log(data?.user)
+
+    if (data?.user?.id) {
+      OneSignal.setExternalUserId(data?.user?.id)
+    }
 
     return [error, data]
   }
@@ -191,9 +195,9 @@ export const AuthProvider: React.FC<{
     setLoading(false)
     setUser(data?.user)
 
-    // if (data?.user?.id) {
-    //   OneSignal.setExternalUserId(data?.user?.id)
-    // }
+    if (data?.user?.id) {
+      OneSignal.setExternalUserId(data?.user?.id)
+    }
 
     return [error, data]
   }
@@ -204,9 +208,9 @@ export const AuthProvider: React.FC<{
     const [error, data] = await fetcher('/authentication/signout')
 
     //if google account
-    if (user?.Type === 'GOOGLE') {
-      // await GoogleSignin.signOut()
-    }
+    // if (user?.Type === 'GOOGLE') {
+    //   // await GoogleSignin.signOut()
+    // }
 
     if (error && !data) {
       setUser(null)

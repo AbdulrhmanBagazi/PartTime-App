@@ -50,6 +50,7 @@ const GoogleSignIn = async (req: Request, res: Response) => {
 
       return res.status(200).send({
         user: {
+          id: user.id,
           email: user.email,
           verfied: user.verfied,
           Type: user.Type,
@@ -99,6 +100,7 @@ const GoogleSignIn = async (req: Request, res: Response) => {
 
       return res.status(200).send({
         user: {
+          id: newUser.id,
           email: newUser.email,
           verfied: newUser.verfied,
           Type: newUser.Type,
