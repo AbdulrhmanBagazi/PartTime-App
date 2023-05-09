@@ -4,7 +4,31 @@
   },
   "Profile": {
     "Title": "الملف الشخصي",
-    "SignIn": "تسجيل الدخول"
+    "SignIn": "تسجيل الدخول",
+    "CV": "قم بتسجيل الدخول لإعداد سيرتك الذاتية",
+    "Hello": "مرحبا،",
+    "Guest": "ضيف",
+    "NewUser": "مستخدم جديد",
+    "Edit": "تعديل",
+    "PersonalInformation": "معلومات شخصية",
+    "Name": "الإسم",
+    "NationalId": "رقم الهوية",
+    "Nationality": "الجنسية",
+    "DateOfBirth": "تاريخ الميلاد",
+    "Gender": "الجنس",
+    "City": "المدينة",
+    "GeneralInformation": "معلومات عامة",
+    "About": "عني",
+    "Education": "التعليم",
+    "Experinces": "الخبرات",
+    "VideoInterview": "مقابلة الفيديو",
+    "Arabic": "عربي",
+    "English": "إنجليزي",
+    "ContactInformation": "معلومات التواصل",
+    "Phone": "رقم الجوال",
+    "WhatsApp": "واتساب",
+    "CreateProfile": "إنشاء الملف الشخصي",
+    "Start": "بدء"
   },
   "App.Settings": {
     "Title": "إعدادات التطبيق",
@@ -13,7 +37,11 @@
     "Language": "اللغة",
     "Arabic": "عربي",
     "English": "English",
-    "SignOut": "تسجيل الخروج"
+    "SignOut": "تسجيل الخروج",
+    "Notification": "الإشعارات",
+    "AllowNotification": "السماح بالإشعارات",
+    "AppRestart": "سيتم إعادة تشغيل التطبيق!",
+    "Wanttoproceed": "تريد المتابعة؟"
   },
   "SignIn": {
     "Title": "تسجيل الدخول",
@@ -24,7 +52,8 @@
     "Password": "كلمة المرور",
     "RePassword": "كرر كلمة المرور",
     "SignUp": "إنشاء حساب",
-    "Incorrect": "البريد الإلكتروني أو كلمة المرور غير صحيحة"
+    "Incorrect": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+    "HaveAccount": "هل لديك حساب؟ تسجيل الدخول"
   },
   "SignUp": {
     "Title": "إنشاء حساب",
@@ -43,5 +72,17 @@
   },
   "Snack": {
     "SignOut": "تم تسجيل الخروج بنجاح"
+  },
+  "Notifications": {
+    "AllowNotifications": "تمكين الإشعارات",
+    "AllowNotificationsMSG": "يمكن تمكين الإشعارات من الإعدادات العامة على جهازك.",
+    "Settings": "الإعدادات",
+    "Cancel": "إلغاء"
+  },
+  "MyJobs": {
+    "Title": "وظائفي"
+  },
+  "createprofile": {
+    "Title": "إنشاء الملف الشخصي"
   }
 }

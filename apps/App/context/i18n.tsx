@@ -3,11 +3,12 @@ import { I18nManager } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import Arabic from '../lang/Arabic.json'
 import English from '../lang/English.json'
+import RNRestart from 'react-native-restart' // Import package from node modules
 
 type ar = 'ar'
 type en = 'en'
 
-type Language = ar | en
+export type Language = ar | en
 export type I18n = typeof Arabic | typeof English
 
 type I18nContextType = {
@@ -35,8 +36,8 @@ export const I18nProvider: React.FC<{
       setI18n(Arabic)
       I18nManager.forceRTL(true)
       I18nManager.allowRTL(true)
-      // return Restart()
-      return
+
+      return RNRestart.restart()
     }
 
     await SecureStore.setItemAsync('AppLang', 'en')
@@ -44,8 +45,8 @@ export const I18nProvider: React.FC<{
     setI18n(English)
     I18nManager.forceRTL(false)
     I18nManager.allowRTL(false)
-    // return Restart()
-    return
+
+    return RNRestart.restart()
   }
 
   useEffect(() => {

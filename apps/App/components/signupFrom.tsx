@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, TextInput, Text, HelperText } from 'react-native-paper'
+import { Button, TextInput, HelperText } from 'react-native-paper'
 import { I18n } from '../context/i18n'
 import { useAuth } from '../context/auth'
 import { AuthenticatedTypes } from '../types/types'
@@ -89,14 +89,11 @@ const SignupForm: React.FC<{ I18n: I18n }> = ({ I18n }) => {
 
   return (
     <>
-      <Text variant="headlineLarge">{I18n.SignUp.Title}</Text>
-
       <TextInput
         label={I18n.SignUp.Email}
         value={email}
         onChangeText={(val) => validateEmail(val)}
         onBlur={() => validateEmail(email)}
-        style={{ marginTop: 10 }}
         mode="outlined"
         error={errors.email}
         disabled={loading}
@@ -116,7 +113,7 @@ const SignupForm: React.FC<{ I18n: I18n }> = ({ I18n }) => {
         value={password}
         onChangeText={(val) => validatePassword(val)}
         onBlur={() => validatePassword(password)}
-        style={{ marginTop: 10 }}
+        // style={{ marginTop: 10 }}
         mode="outlined"
         error={errors.password}
         disabled={loading}
@@ -136,7 +133,7 @@ const SignupForm: React.FC<{ I18n: I18n }> = ({ I18n }) => {
         value={repassword}
         onChangeText={(val) => validateRePassword(val)}
         onBlur={() => validateRePassword(repassword)}
-        style={{ marginTop: 10 }}
+        // style={{ marginTop: 10 }}
         mode="outlined"
         error={errors.repassword}
         disabled={loading}
@@ -158,7 +155,7 @@ const SignupForm: React.FC<{ I18n: I18n }> = ({ I18n }) => {
         }
         mode="contained"
         onPress={() => HandleSignUp({ email, password })}
-        style={{ marginTop: 20 }}
+        style={{ marginTop: 10 }}
       >
         {I18n.SignUp.Title}
       </Button>

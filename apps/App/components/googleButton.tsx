@@ -30,10 +30,10 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
 
   return (
     <Button
+      mode="contained"
       onPress={() => {
         promptAsync()
       }}
-      mode="contained"
       // labelStyle={styles.label}
       buttonColor={dark ? '#FFFFFF' : '#4285F4'}
       textColor={dark ? 'black' : 'white'}

@@ -6,7 +6,7 @@ const NavDarkTheme = {
   dark: true,
   colors: {
     // primary: 'rgb(10, 132, 255)',
-    // background: 'rgb(1, 1, 1)',
+    background: myDarkTheme.colors.background,
     // card: 'rgb(18, 18, 18)',
     card: myDarkTheme.colors.background,
     text: 'rgb(229, 229, 231)',
@@ -19,7 +19,7 @@ const NavLightTheme = {
   dark: false,
   colors: {
     // primary: 'rgb(0, 122, 255)',
-    // background: 'rgb(242, 242, 242)',
+    background: myLightTheme.colors.background,
     // card: 'rgb(255, 255, 255)',
     card: myLightTheme.colors.background,
     text: 'rgb(28, 28, 30)',

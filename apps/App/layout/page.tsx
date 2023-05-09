@@ -20,12 +20,15 @@ export default function Page(props: {
   const theme = useTheme()
 
   return (
-    <View style={[styles.container]}>
+    <View style={styles.container}>
       <ScrollView
+        alwaysBounceVertical={false}
         style={styles.ScrollView}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           backgroundColor: theme.colors.background,
-          padding: 10
+          padding: 10,
+          paddingBottom: 50
         }}
         scrollEnabled={props.scrollEnabled}
       >

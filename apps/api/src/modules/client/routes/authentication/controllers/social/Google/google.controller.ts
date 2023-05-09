@@ -25,8 +25,10 @@ const GoogleSignIn = async (req: Request, res: Response) => {
         id: true,
         email: true,
         verfied: true,
+        verificationEmail: true,
         Type: true,
-        verificationEmail: true
+        AppleId: true,
+        Profile: true
       }
     })
 
@@ -72,8 +74,10 @@ const GoogleSignIn = async (req: Request, res: Response) => {
           id: true,
           email: true,
           verfied: true,
+          verificationEmail: true,
           Type: true,
-          verificationEmail: true
+          AppleId: true,
+          Profile: true
         }
       })
 

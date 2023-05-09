@@ -1,0 +1,55 @@
+{
+  "Home": {
+    "Title": "Home"
+  },
+  "Profile": {
+    "Title": "Profile",
+    "SignIn": "SignIn"
+  },
+  "App.Settings": {
+    "Title": "App Settings",
+    "Theme": "Theme",
+    "DarkMode": "Dark Mode",
+    "Language": "Language",
+    "Arabic": "عربي",
+    "English": "English",
+    "SignOut": "SignOut",
+    "Notification": "Notification",
+    "AllowNotification": "Allow Notification"
+  },
+  "SignIn": {
+    "Title": "SignIn",
+    "Google": "Continue with Google",
+    "Apple": "Continue with Apple",
+    "EmailSignIn": "Continue with Email",
+    "Email": "Email",
+    "Password": "Password",
+    "RePassword": "Repeat Password",
+    "SignUp": "SignUp",
+    "Incorrect": "Incorrect email or password"
+  },
+  "SignUp": {
+    "Title": "SignUp",
+    "Email": "Email",
+    "Password": "Password",
+    "RePassword": "Repeat Password",
+    "EmailUsed": "Email Used!",
+    "PasswordStregth": "Password must contain 3 letters",
+    "PasswordCompare": "Passwords do not match",
+    "EmailInvalid": "Invalid Email"
+  },
+  "Alert": {
+    "Yes": "yes",
+    "No": "no",
+    "Alert.SignOut": "are you sure you want to SignOut?"
+  },
+  "Snack": {
+    "SignOut": "SignOut Successful"
+  },
+  "Notifications": {
+    "AllowNotifications": "Enable Push Notifications?",
+    "AllowNotificationsMSG": "Push notifications can be enabled from General Settings on your Device.",
+    "Settings": "Settings",
+    "Cancel": "Cancel"
+  }
+}

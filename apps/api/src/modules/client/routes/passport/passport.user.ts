@@ -54,7 +54,9 @@ passport.use(
           password: true,
           verfied: true,
           verificationEmail: true,
-          Type: true
+          Type: true,
+          AppleId: true,
+          Profile: true
         }
       })
 
@@ -85,7 +87,8 @@ passport.use(
           verfied: true,
           verificationEmail: true,
           Type: true,
-          AppleId: true
+          AppleId: true,
+          Profile: true
         }
       })
     if (user) {
@@ -110,7 +113,8 @@ passport.use(
           verfied: true,
           verificationEmail: true,
           Type: true,
-          AppleId: true
+          AppleId: true,
+          Profile: true
         }
       })
     if (user) {
@@ -134,7 +138,9 @@ passport.use(
           email: true,
           verfied: true,
           verificationEmail: true,
-          Type: true
+          Type: true,
+          AppleId: true,
+          Profile: true
         }
       })
 

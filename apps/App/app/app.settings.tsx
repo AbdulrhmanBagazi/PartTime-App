@@ -6,6 +6,8 @@ import { useTheme } from '../context/theme'
 import { Text, Switch, Divider, RadioButton, Button } from 'react-native-paper'
 import { useI18n } from '../context/i18n'
 import { useAuth } from '../context/auth'
+import { useNotification } from '../context/notification'
+import { useTheme as PaperTheme } from 'react-native-paper'
 
 export default function Modal() {
   const navigation = useNavigation()
@@ -13,6 +15,9 @@ export default function Modal() {
   const { SignOut, loading, auth } = useAuth()
   const isPresented = navigation.canGoBack()
   const { Lang, ToggleI18n, I18n } = useI18n()
+  const { notificationLoading, ToggleNotification, Notification } =
+    useNotification()
+  const theme = PaperTheme()
 
   return (
     <Page>
@@ -33,28 +38,80 @@ export default function Modal() {
           <Switch value={Dark} onValueChange={ToggleTheme} />
         </View>
         <Divider style={styles.Divider} />
+        <Text variant="bodyLarge">{I18n['App.Settings'].Notification}</Text>
+        <View style={styles.items}>
+          <Text variant="labelLarge">
+            {I18n['App.Settings'].AllowNotification}
+          </Text>
+          <Switch
+            value={
+              Notification?.hasNotificationPermission
+                ? !Notification.isPushDisabled
+                : false
+            }
+            onValueChange={ToggleNotification}
+            disabled={notificationLoading}
+          />
+        </View>
+        <Divider style={styles.Divider} />
         <Text variant="bodyLarge">{I18n['App.Settings'].Language}</Text>
         <View style={styles.items}>
           <Text variant="labelLarge">{I18n['App.Settings'].Arabic}</Text>
           <RadioButton
             value="ar"
+            disabled={Lang === 'ar'}
             status={Lang === 'ar' ? 'checked' : 'unchecked'}
-            onPress={() => ToggleI18n('ar')}
+            onPress={() =>
+              Alert.alert(
+                I18n['App.Settings'].AppRestart,
+                I18n['App.Settings'].Wanttoproceed,
+                [
+                  {
+                    text: I18n.Alert.Yes,
+                    onPress: () => {
+                      ToggleI18n('ar')
+                    }
+                  },
+                  {
+                    text: I18n.Notifications.Cancel
+                  }
+                ]
+              )
+            }
           />
         </View>
         <View style={styles.items}>
           <Text variant="labelLarge">{I18n['App.Settings'].English}</Text>
           <RadioButton
             value="en"
+            disabled={Lang === 'en'}
             status={Lang === 'en' ? 'checked' : 'unchecked'}
-            onPress={() => ToggleI18n('en')}
+            onPress={() =>
+              Alert.alert(
+                I18n['App.Settings'].AppRestart,
+                I18n['App.Settings'].Wanttoproceed,
+                [
+                  {
+                    text: I18n.Alert.Yes,
+                    onPress: () => {
+                      ToggleI18n('en')
+                    }
+                  },
+                  {
+                    text: I18n.Notifications.Cancel
+                  }
+                ]
+              )
+            }
           />
         </View>
         <Divider style={styles.Divider} />
         <View style={styles.signou}>
           <Button
-            icon="login"
+            icon="logout"
             mode="contained"
+            buttonColor={theme.colors.secondary}
+            textColor={theme.colors.onSecondary}
             onPress={() =>
               Alert.alert(
                 I18n['App.Settings'].SignOut,

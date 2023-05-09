@@ -2,7 +2,7 @@ import { ActivityIndicator, View } from 'react-native'
 import { useAuth } from '../context/auth'
 import { SplashScreen, useRootNavigation, useRouter } from 'expo-router'
 import { useEffect } from 'react'
-import Page from '../layout/page'
+// import Page from '../layout/page'
 
 export default function Loading() {
   const { auth, loading } = useAuth()
@@ -24,10 +24,8 @@ export default function Loading() {
   }
 
   return (
-    <Page scrollEnabled={false}>
-      <View style={{ flex: 1, justifyContent: 'center' }}>
-        <ActivityIndicator />
-      </View>
-    </Page>
+    <View style={{ flex: 1, justifyContent: 'center' }}>
+      <ActivityIndicator />
+    </View>
   )
 }

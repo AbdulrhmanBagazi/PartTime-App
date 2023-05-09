@@ -4,7 +4,31 @@
   },
   "Profile": {
     "Title": "Profile",
-    "SignIn": "SignIn"
+    "SignIn": "SignIn",
+    "CV": "Sign In to set up your Profile",
+    "Hello": "Hello,",
+    "Guest": "Guest",
+    "NewUser": "New User",
+    "Edit": "Edit",
+    "PersonalInformation": "Personal Information",
+    "Name": "Name",
+    "NationalId": "National ID",
+    "Nationality": "Nationality",
+    "DateOfBirth": "Date of birth",
+    "Gender": "Gender",
+    "City": "City",
+    "GeneralInformation": "General Information",
+    "About": "About",
+    "Education": "Education",
+    "Experinces": "Experinces",
+    "VideoInterview": "Video Interview",
+    "Arabic": "Arabic",
+    "English": "English",
+    "ContactInformation": "Contact Information",
+    "Phone": "Phone Number",
+    "WhatsApp": "WhatsApp",
+    "CreateProfile": "Create Profile",
+    "Start": "Start"
   },
   "App.Settings": {
     "Title": "App Settings",
@@ -13,7 +37,11 @@
     "Language": "Language",
     "Arabic": "عربي",
     "English": "English",
-    "SignOut": "SignOut"
+    "SignOut": "SignOut",
+    "Notification": "Notification",
+    "AllowNotification": "Allow Notification",
+    "AppRestart": "App will restart!",
+    "Wanttoproceed": "Want To Proceed?"
   },
   "SignIn": {
     "Title": "SignIn",
@@ -24,7 +52,8 @@
     "Password": "Password",
     "RePassword": "Repeat Password",
     "SignUp": "SignUp",
-    "Incorrect": "Incorrect email or password"
+    "Incorrect": "Incorrect email or password",
+    "HaveAccount": "Already have an account? SignIn"
   },
   "SignUp": {
     "Title": "SignUp",
@@ -43,5 +72,17 @@
   },
   "Snack": {
     "SignOut": "SignOut Successful"
+  },
+  "Notifications": {
+    "AllowNotifications": "Enable Push Notifications?",
+    "AllowNotificationsMSG": "Push notifications can be enabled from General Settings on your Device.",
+    "Settings": "Settings",
+    "Cancel": "Cancel"
+  },
+  "MyJobs": {
+    "Title": "My Jobs"
+  },
+  "createprofile": {
+    "Title": "Create Profile"
   }
 }

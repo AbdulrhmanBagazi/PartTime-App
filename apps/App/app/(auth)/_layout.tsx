@@ -15,14 +15,7 @@ export default () => {
         name="signin"
         options={{
           title: I18n.SignIn.Title,
-          presentation: 'modal'
-        }}
-      />
-      <Stack.Screen
-        name="signup"
-        options={{
-          title: I18n.SignUp.Title,
-          presentation: 'modal'
+          headerShown: false
         }}
       />
     </Stack>

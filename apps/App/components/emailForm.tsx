@@ -1,13 +1,11 @@
 import { useState } from 'react'
-import { Button, TextInput, Text, HelperText } from 'react-native-paper'
+import { Button, TextInput, HelperText } from 'react-native-paper'
 import { I18n } from '../context/i18n'
 import { useAuth } from '../context/auth'
 import { AuthenticatedTypes } from '../types/types'
-import { useRouter } from 'expo-router'
 
 const EmailForm: React.FC<{ I18n: I18n }> = ({ I18n }) => {
   const { loading, SignIn } = useAuth() as AuthenticatedTypes
-  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({
@@ -78,25 +76,24 @@ const EmailForm: React.FC<{ I18n: I18n }> = ({ I18n }) => {
 
   return (
     <>
-      <Text variant="headlineLarge">{I18n.SignIn.EmailSignIn}</Text>
-
       <TextInput
         label={I18n.SignIn.Email}
         value={email}
         onChangeText={(val) => validateEmail(val)}
         onBlur={() => validateEmail(email)}
-        style={{ marginTop: 10 }}
         mode="outlined"
         error={errors.email}
         disabled={loading}
         keyboardType="email-address"
       />
+      <HelperText type="error" visible={false}>
+        {' '}
+      </HelperText>
       <TextInput
         label={I18n.SignIn.Password}
         value={password}
         onChangeText={(val) => validatePassword(val)}
         onBlur={() => validatePassword(password)}
-        style={{ marginTop: 10 }}
         mode="outlined"
         error={errors.password}
         disabled={loading}
@@ -114,20 +111,11 @@ const EmailForm: React.FC<{ I18n: I18n }> = ({ I18n }) => {
 
       <Button
         disabled={errors.email || errors.password || loading}
-        mode="contained"
         onPress={() => HandleLogin({ email, password })}
-        style={{ marginTop: 20 }}
+        style={{ marginTop: 10 }}
+        mode="contained"
       >
         {I18n.SignIn.Title}
-      </Button>
-
-      <Button
-        disabled={loading}
-        mode="text"
-        onPress={() => router.push('/signup')}
-        style={{ marginTop: 10 }}
-      >
-        {I18n.SignIn.SignUp}
       </Button>
     </>
   )
