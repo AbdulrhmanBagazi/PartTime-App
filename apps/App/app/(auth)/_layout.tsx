@@ -1,8 +1,8 @@
 import { Stack } from 'expo-router'
-import { useI18n } from '../../context/i18n'
+import { useI18nHook } from '../../hook/i18n'
 
 export default () => {
-  const { I18n } = useI18n()
+  const I18n = useI18nHook((state) => state.I18n)
 
   return (
     <Stack

@@ -1,13 +1,19 @@
 import 'react-native-gesture-handler'
 import { Stack } from 'expo-router'
-import { AuthProvider } from '../context/auth'
-import { ToggleThemeProvider } from '../context/theme'
-import { I18nProvider } from '../context/i18n'
-import { SnackProvider } from '../context/snack'
 import Constants from 'expo-constants'
 import OneSignal from 'react-native-onesignal'
 import * as Notifications from 'expo-notifications'
 import { NotificationProvider } from '../context/notification'
+import { ApolloProvider } from '@apollo/client'
+import Client from '../api/apollo'
+import { CombinedDarkTheme, CombinedDefaultTheme } from '../theme/config'
+import { useThemeHook } from '../hook/theme'
+import React, { useEffect } from 'react'
+import { Provider as PaperProvider } from 'react-native-paper'
+import { ThemeProvider } from '@react-navigation/native'
+import { StatusBar } from 'expo-status-bar'
+import { useAuthHook } from '../hook/auth'
+
 OneSignal.setAppId(Constants.manifest.extra.oneSignalAppId)
 //Method for handling notifications received while app in foreground
 OneSignal.setNotificationWillShowInForegroundHandler(
@@ -34,39 +40,58 @@ Notifications.setNotificationHandler({
 })
 
 export default () => {
+  const Dark = useThemeHook((state) => state.Dark)
+  const Authenticate = useAuthHook((state) => state.Authenticate)
+
+  useEffect(() => {
+    Authenticate()
+  }, [])
+
   return (
-    <ToggleThemeProvider>
-      <I18nProvider>
+    <ThemeProvider value={Dark ? CombinedDarkTheme : CombinedDefaultTheme}>
+      <PaperProvider theme={Dark ? CombinedDarkTheme : CombinedDefaultTheme}>
         <NotificationProvider>
-          <SnackProvider>
-            <AuthProvider>
-              <Stack
-                initialRouteName="loading"
-                screenOptions={{
-                  headerShadowVisible: false
+          <ApolloProvider client={Client}>
+            <StatusBar style={Dark ? 'light' : 'dark'} animated />
+            <Stack
+              screenOptions={{
+                headerShadowVisible: false
+              }}
+            >
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="(tabs)"
+                options={{ headerShown: false, animation: 'fade' }}
+              />
+              <Stack.Screen
+                name="createprofile"
+                options={{
+                  headerBackTitleVisible: false
                 }}
-              >
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="(auth)"
-                  options={{
-                    presentation: 'modal',
-                    headerShown: false
-                  }}
-                />
-                <Stack.Screen name="createprofile" />
-                <Stack.Screen
-                  name="app.settings"
-                  options={{
-                    presentation: 'modal'
-                  }}
-                />
-              </Stack>
-            </AuthProvider>
-          </SnackProvider>
+              />
+              <Stack.Screen
+                name="app.settings"
+                options={{
+                  presentation: 'modal'
+                }}
+              />
+              <Stack.Screen
+                name="(auth)"
+                options={{
+                  presentation: 'modal',
+                  headerShown: false
+                }}
+              />
+              <Stack.Screen
+                name="languge"
+                options={{
+                  headerShown: false
+                }}
+              />
+            </Stack>
+          </ApolloProvider>
         </NotificationProvider>
-      </I18nProvider>
-    </ToggleThemeProvider>
+      </PaperProvider>
+    </ThemeProvider>
   )
 }

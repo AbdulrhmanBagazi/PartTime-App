@@ -6,15 +6,19 @@ import {
   expoClientId,
   iosClientId
 } from '../config/app.config'
-import { useAuth } from '../context/auth'
 import * as Google from 'expo-auth-session/providers/google'
 import { Image } from 'expo-image'
+import { useAuthHook } from '../hook/auth'
+import { GoogleArgs, QueryResponse } from '../types/types'
 
 const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
   text,
   dark
 }) => {
-  const { loading, GoogleSignIn } = useAuth()
+  const GoogleSignIn = useAuthHook((state) => state.GoogleSignIn) as (
+    arg0: GoogleArgs
+  ) => QueryResponse
+  const loading = useAuthHook((state) => state.loading)
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: androidClientId,
@@ -54,8 +58,8 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
             alignItems: 'center',
             marginLeft: -15,
             margin: 1,
-            borderTopLeftRadius: 20,
-            borderBottomLeftRadius: 20,
+            borderTopLeftRadius: 10,
+            borderBottomLeftRadius: 10,
             opacity: loading ? 0.25 : 1
           }}
         >

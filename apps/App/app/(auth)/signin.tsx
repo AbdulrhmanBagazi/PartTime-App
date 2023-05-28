@@ -1,26 +1,41 @@
 import { Stack, useNavigation, useRouter } from 'expo-router'
 import Page from '../../layout/page'
-import { useI18n } from '../../context/i18n'
 import MGoogleButton from '../../components/googleButton'
 import MAppleButton from '../../components/appleButton'
-import { useAuth } from '../../context/auth'
-import { useEffect, useState } from 'react'
-import { useTheme } from '../../context/theme'
+import { useEffect, useRef } from 'react'
 import { Button, Divider } from 'react-native-paper'
 import EmailForm from '../../components/emailForm'
 import SignupForm from '../../components/signupFrom'
 import { Image } from 'expo-image'
-import { Platform, View } from 'react-native'
+import { Keyboard, Platform, View } from 'react-native'
 import { useTheme as PaperTheme } from 'react-native-paper'
+import { useI18nHook } from '../../hook/i18n'
+import { useThemeHook } from '../../hook/theme'
+import { StatusBar } from 'expo-status-bar'
+import { ScrollView } from 'react-native-gesture-handler'
+import { Dimensions } from 'react-native'
+import { useAuthHook } from '../../hook/auth'
 
 export default function SignIn() {
-  const { I18n } = useI18n()
-  const { loading, auth } = useAuth()
-  const { Dark } = useTheme()
+  const I18n = useI18nHook((state) => state.I18n)
+  const auth = useAuthHook((state) => state.auth)
+  const loading = useAuthHook((state) => state.loading)
+
+  const Dark = useThemeHook((state) => state.Dark)
   const router = useRouter()
-  const [value, setValue] = useState('signin')
   const theme = PaperTheme()
   const { addListener } = useNavigation()
+  const windowWidth = Dimensions.get('window').width
+  const ScrollViewRef = useRef<ScrollView>()
+
+  const Switch = async (val: string) => {
+    Keyboard.dismiss()
+    if (val === 'signin') {
+      return ScrollViewRef.current.scrollToEnd({ animated: true })
+    } else {
+      return ScrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true })
+    }
+  }
 
   useEffect(() => {
     if (auth) {
@@ -48,6 +63,7 @@ export default function SignIn() {
 
   return (
     <Page>
+      <StatusBar style="light" animated />
       <Stack.Screen
         options={{
           gestureEnabled: !loading,
@@ -73,40 +89,66 @@ export default function SignIn() {
         />
       </View>
 
-      {value === 'signin' ? (
-        <>
-          <EmailForm I18n={I18n} />
+      <ScrollView
+        horizontal
+        pagingEnabled
+        scrollEnabled={false}
+        showsHorizontalScrollIndicator={false}
+        ref={ScrollViewRef}
+      >
+        <View
+          style={{
+            flex: 1,
+            width: windowWidth - 30,
+            justifyContent: 'center'
+          }}
+        >
+          <View style={{ padding: 10, justifyContent: 'center' }}>
+            <EmailForm I18n={I18n} />
+            <Button
+              disabled={loading}
+              mode="text"
+              onPress={() => Switch('signin')}
+              style={{ marginTop: 10 }}
+              textColor={theme.colors.secondary}
+            >
+              {I18n.SignIn.SignUp}
+            </Button>
+            <Divider style={{ marginVertical: 10 }} />
+            <MGoogleButton dark={Dark} text={I18n.SignIn.Google} />
+            <Divider
+              style={{ width: 100, marginVertical: 10, alignSelf: 'center' }}
+            />
+            <MAppleButton dark={Dark} text={I18n.SignIn.Apple} />
+          </View>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            width: windowWidth - 30,
+            justifyContent: 'center'
+          }}
+        >
+          <View style={{ padding: 10, justifyContent: 'center' }}>
+            <SignupForm I18n={I18n} />
+            <Button
+              disabled={loading}
+              mode="text"
+              onPress={() => Switch('signout')}
+              style={{ marginTop: 10 }}
+              textColor={theme.colors.secondary}
+            >
+              {I18n.SignIn.HaveAccount}
+            </Button>
+          </View>
+        </View>
+      </ScrollView>
 
-          <Button
-            disabled={loading}
-            mode="text"
-            onPress={() => setValue('signup')}
-            style={{ marginTop: 10 }}
-            textColor={theme.colors.secondary}
-          >
-            {I18n.SignIn.SignUp}
-          </Button>
-          <Divider style={{ marginVertical: 10 }} />
-          <MGoogleButton dark={Dark} text={I18n.SignIn.Google} />
-          <Divider
-            style={{ width: 100, marginVertical: 10, alignSelf: 'center' }}
-          />
-          <MAppleButton dark={Dark} text={I18n.SignIn.Apple} />
-        </>
+      {/* {value === 'signin' ? (
+    
       ) : (
-        <>
-          <SignupForm I18n={I18n} />
-          <Button
-            disabled={loading}
-            mode="text"
-            onPress={() => setValue('signin')}
-            style={{ marginTop: 10 }}
-            textColor={theme.colors.secondary}
-          >
-            {I18n.SignIn.HaveAccount}
-          </Button>
-        </>
-      )}
+     
+      )} */}
     </Page>
   )
 }

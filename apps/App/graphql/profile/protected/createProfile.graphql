@@ -1,0 +1,33 @@
+mutation Create_UserProfile(
+  $name: String!
+  $nationality: String!
+  $nationalID: String!
+  $age: String!
+  $gender: String!
+) {
+  Create_UserProfile(
+    name: $name
+    nationality: $nationality
+    nationalID: $nationalID
+    age: $age
+    gender: $gender
+  ) {
+    id
+    createdAt
+    updatedAt
+    userId
+    name
+    nationality
+    nationalID
+    age
+    gender
+    city
+    phone
+    whatsapp
+    about
+    degree
+    experiences
+    arabicVideo
+    englishVideo
+  }
+}

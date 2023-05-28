@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import OneSignal, { IosPermissionStatus } from 'react-native-onesignal'
 import { Alert, Linking } from 'react-native'
-import { useI18n } from './i18n'
+import { useI18nHook } from '../hook/i18n'
 
 interface DeviceState {
   userId: string
@@ -30,7 +30,7 @@ export const NotificationProvider: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {
   const [isNotification, setNotification] = useState<DeviceState | null>(null)
-  const { I18n } = useI18n()
+  const I18n = useI18nHook((state) => state.I18n)
   const [isLoading, setLoading] = useState(false)
 
   const ToggleNotification = async () => {

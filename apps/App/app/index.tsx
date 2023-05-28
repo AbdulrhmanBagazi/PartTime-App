@@ -1,30 +1,62 @@
 import { ActivityIndicator, View } from 'react-native'
-import { useAuth } from '../context/auth'
-import { SplashScreen, useRootNavigation, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
-// import Page from '../layout/page'
+import { myLightTheme } from '../theme/light'
+import * as SecureStore from 'expo-secure-store'
+import { useI18nHook } from '../hook/i18n'
+import { useThemeHook } from '../hook/theme'
+import { useAuthHook } from '../hook/auth'
 
 export default function Loading() {
-  const { auth, loading } = useAuth()
+  // const { auth, loading } = useAuth()
   const router = useRouter()
-  const ExpoRouter = useRootNavigation()
+  const I18nStore = useI18nHook((state) => state.I18nStore)
+  const ThemeStore = useThemeHook((state) => state.ThemeStore)
+  const loading = useAuthHook((state) => state.loading)
+  const auth = useAuthHook((state) => state.auth)
 
   useEffect(() => {
-    if (auth) {
-      return router.replace('(tabs)/home')
+    const Load = async () => {
+      const LangStore = await SecureStore.getItemAsync('AppLang')
+      I18nStore()
+      ThemeStore()
+
+      if (LangStore === null) {
+        setTimeout(() => {
+          router.replace('/languge')
+        }, 1000)
+
+        return
+      }
+
+      if (auth && !loading) {
+        setTimeout(() => {
+          router.replace('(tabs)/home')
+        }, 1000)
+
+        return
+      }
+
+      if (!auth && !loading) {
+        setTimeout(() => {
+          router.replace('(tabs)/home')
+        }, 1000)
+
+        return
+      }
     }
 
-    if (!auth && !loading) {
-      return router.replace('(tabs)/home')
-    }
+    Load()
   }, [auth, loading])
 
-  if (!ExpoRouter.isReady()) {
-    return <SplashScreen />
-  }
-
   return (
-    <View style={{ flex: 1, justifyContent: 'center' }}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: myLightTheme.colors.primary
+      }}
+    >
       <ActivityIndicator />
     </View>
   )

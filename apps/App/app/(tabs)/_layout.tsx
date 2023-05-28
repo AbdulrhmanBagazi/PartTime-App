@@ -1,12 +1,13 @@
 import { Tabs } from 'expo-router'
 import SettingsButton from '../../components/settingsButton'
-import { useI18n } from '../../context/i18n'
 import { IconButton } from 'react-native-paper'
-import { useAuth } from '../../context/auth'
+import { useI18nHook } from '../../hook/i18n'
+import { useAuthHook } from '../../hook/auth'
 
 export default () => {
-  const { I18n } = useI18n()
-  const { auth } = useAuth()
+  const I18n = useI18nHook((state) => state.I18n)
+  const auth = useAuthHook((state) => state.auth)
+  const Direction = useI18nHook((state) => state.Direction)
 
   return (
     <Tabs
@@ -14,7 +15,8 @@ export default () => {
       screenOptions={({ route }) => ({
         headerShadowVisible: false,
         tabBarStyle: {
-          borderTopWidth: 0
+          borderTopWidth: 0,
+          direction: Direction
         },
         tabBarIcon: ({ color, size }) => {
           let iconName = ''
@@ -27,7 +29,6 @@ export default () => {
           } else {
             iconName = 'login'
           }
-
           return (
             <IconButton
               icon={iconName}
@@ -54,7 +55,7 @@ export default () => {
       <Tabs.Screen
         name="profile"
         options={{
-          headerRight: () => <SettingsButton />,
+          headerLeft: () => <SettingsButton />,
           title: I18n.Profile.Title
         }}
       />

@@ -1,28 +1,5 @@
 import 'react-native-svg'
-
-interface UserProfileType {
-  id: string
-  createdAt: DateTime
-  updatedAt: DateTime
-  //
-  userId: string
-  //
-  Name: string
-  nationality: CountryCode
-  nationalID: string
-  dateOfBirth: Date | null
-  gender: string
-  //
-  whatsapp: string
-  phone: string
-  //
-  About: string
-  Degree: string
-  Experiences: Json[]
-  //
-  ArabicVideo: string
-  EnglishVideo: string!
-}
+import { Profile } from '../graphql/generated'
 
 export type UserTypes = {
   email: string
@@ -30,7 +7,7 @@ export type UserTypes = {
   Type: string
   verificationEmail: string
   AppleId?: string
-  Profile: UserProfileType | null
+  Profile: Profile | null
 }
 
 export interface user {
@@ -70,6 +47,7 @@ export type AuthenticatedTypes = {
   Authenticate: () => void
   SignIn: (arg0: SignTypes) => QueryResponse
   SignUp: (arg0: SignTypes) => QueryResponse
+  UpdateUserProfile: (arg0: Profile) => void
 }
 
 declare module 'react-native-svg' {

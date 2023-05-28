@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <Page>
-      <Card mode="elevated">
+      <Card mode="contained">
         <Card.Title
           title="Card contained"
           subtitle="Subtitle"

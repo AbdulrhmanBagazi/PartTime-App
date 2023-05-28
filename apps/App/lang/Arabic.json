@@ -6,15 +6,15 @@
     "Title": "الملف الشخصي",
     "SignIn": "تسجيل الدخول",
     "CV": "قم بتسجيل الدخول لإعداد سيرتك الذاتية",
-    "Hello": "مرحبا،",
+    "Hello": "مرحبا",
     "Guest": "ضيف",
     "NewUser": "مستخدم جديد",
     "Edit": "تعديل",
-    "PersonalInformation": "معلومات شخصية",
-    "Name": "الإسم",
-    "NationalId": "رقم الهوية",
+    "PersonalInformation": "المعلومات الشخصية",
+    "Name": "الإسم الثلاثي",
+    "NationalId": "رقم الهوية/الإقامة",
     "Nationality": "الجنسية",
-    "DateOfBirth": "تاريخ الميلاد",
+    "age": "تاريخ الميلاد",
     "Gender": "الجنس",
     "City": "المدينة",
     "GeneralInformation": "معلومات عامة",
@@ -28,7 +28,14 @@
     "Phone": "رقم الجوال",
     "WhatsApp": "واتساب",
     "CreateProfile": "إنشاء الملف الشخصي",
-    "Start": "بدء"
+    "Start": "بدء",
+    "firstname": "الإسم الآول",
+    "middlename": "إسم الآب",
+    "grandfathername": "إسم الجد",
+    "lastname": "إسم العائلة",
+    "DateOfBirthInput": "تاريخ الميلاد",
+    "Male": "ذكر",
+    "Female": "انثى"
   },
   "App.Settings": {
     "Title": "إعدادات التطبيق",
@@ -53,7 +60,8 @@
     "RePassword": "كرر كلمة المرور",
     "SignUp": "إنشاء حساب",
     "Incorrect": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
-    "HaveAccount": "هل لديك حساب؟ تسجيل الدخول"
+    "HaveAccount": "هل لديك حساب؟ تسجيل الدخول",
+    "Required": "مطلوب!"
   },
   "SignUp": {
     "Title": "إنشاء حساب",
@@ -83,6 +91,20 @@
     "Title": "وظائفي"
   },
   "createprofile": {
-    "Title": "إنشاء الملف الشخصي"
+    "Title": "إنشاء الملف الشخصي",
+    "Create": "إنشاء",
+    "CantChange": "يرجى التأكد من صحة المعلومات التي تم إدخالها. لا يمكن تعديله لاحقًا",
+    "Optional": "إختياري",
+    "Done": "تم",
+    "Day": "اليوم",
+    "Month": "الشهر",
+    "Year": "السنة"
+  },
+  "Language": {
+    "Arabic": "عربي",
+    "English": "English"
+  },
+  "Errors": {
+    "Unknown": "حدث خطآ"
   }
 }

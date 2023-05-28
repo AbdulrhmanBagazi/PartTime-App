@@ -10,8 +10,9 @@ import {
   IconButton
 } from 'react-native-paper'
 import { UserTypes } from '../../../types/types'
-import { I18n, Language } from '../../../context/i18n'
 import { useRouter } from 'expo-router'
+import { I18n, Language } from '../../../hook/i18n'
+import countries from 'i18n-iso-countries'
 
 const ProfileUi: React.FC<{
   auth: boolean
@@ -42,10 +43,11 @@ const ProfileUi: React.FC<{
           </View>
         </View>
         <List.Section>
-          <Card mode="elevated">
+          <Card mode="contained">
             <Card.Content>
               <List.Item
                 title={I18n.Profile.CV}
+                titleNumberOfLines={5}
                 left={() => (
                   <View>
                     <List.Icon
@@ -82,7 +84,7 @@ const ProfileUi: React.FC<{
           </View>
         </View>
         <List.Section>
-          <Card mode="elevated">
+          <Card mode="contained">
             <View
               style={{
                 flex: 1,
@@ -115,7 +117,7 @@ const ProfileUi: React.FC<{
               <Button
                 mode="contained"
                 icon={Lang === 'ar' ? 'arrow-left' : 'arrow-right'}
-                onPress={() => router.push('/createprofile')}
+                onPress={() => router.push('createprofile')}
               >
                 {I18n.Profile.Start}
               </Button>
@@ -136,12 +138,12 @@ const ProfileUi: React.FC<{
       >
         <View style={{ flex: 1 }}>
           <Text variant="displayLarge">{I18n.Profile.Hello}</Text>
-          <Text variant="displaySmall">{I18n.Profile.NewUser}</Text>
+          <Text variant="displaySmall">{user.Profile.name.split(' ')[0]}</Text>
         </View>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Avatar.Text
             size={100}
-            label="A"
+            label={user.Profile.name.slice(0, 1)}
             color={theme.colors.background}
             style={{
               backgroundColor: theme.colors.primary
@@ -151,7 +153,7 @@ const ProfileUi: React.FC<{
       </View>
 
       <List.Section>
-        <Card mode="elevated">
+        <Card mode="contained">
           <View
             style={{
               flex: 1,
@@ -161,20 +163,12 @@ const ProfileUi: React.FC<{
             }}
           >
             <List.Subheader>{I18n.Profile.PersonalInformation}</List.Subheader>
-            <Button
-              icon="pencil"
-              mode="text"
-              onPress={() => console.log('Pressed')}
-              textColor={theme.colors.tertiary}
-            >
-              {I18n.Profile.Edit}
-            </Button>
           </View>
           <Divider />
           <Card.Content>
             <List.Item
               title={I18n.Profile.Name}
-              description="Abdulrhman Saeed Baqazi"
+              description={user.Profile.name}
               descriptionNumberOfLines={2}
               left={() => (
                 <View>
@@ -188,7 +182,9 @@ const ProfileUi: React.FC<{
 
             <List.Item
               title={I18n.Profile.Nationality}
-              description="Saudi"
+              description={countries.getName(user.Profile.nationality, Lang, {
+                select: 'official'
+              })}
               descriptionNumberOfLines={2}
               left={() => (
                 <View>
@@ -199,7 +195,7 @@ const ProfileUi: React.FC<{
 
             <List.Item
               title={I18n.Profile.NationalId}
-              description="1085521316"
+              description={user.Profile.nationalID}
               descriptionNumberOfLines={2}
               left={() => (
                 <View>
@@ -209,8 +205,8 @@ const ProfileUi: React.FC<{
             />
 
             <List.Item
-              title={I18n.Profile.DateOfBirth}
-              description="1994/07/22 (29y)"
+              title={I18n.Profile.age}
+              description={user.Profile.age}
               left={() => (
                 <View>
                   <List.Icon icon="circle-small" color={theme.colors.outline} />
@@ -219,16 +215,11 @@ const ProfileUi: React.FC<{
             />
             <List.Item
               title={I18n.Profile.Gender}
-              description="Male"
-              left={() => (
-                <View>
-                  <List.Icon icon="circle-small" color={theme.colors.outline} />
-                </View>
-              )}
-            />
-            <List.Item
-              title={I18n.Profile.City}
-              description="Riyadh"
+              description={
+                user.Profile.gender === 'Male'
+                  ? I18n.Profile.Male
+                  : I18n.Profile.Female
+              }
               left={() => (
                 <View>
                   <List.Icon icon="circle-small" color={theme.colors.outline} />
@@ -239,7 +230,7 @@ const ProfileUi: React.FC<{
         </Card>
       </List.Section>
       <List.Section>
-        <Card mode="elevated">
+        <Card mode="contained">
           <View
             style={{
               flex: 1,
@@ -262,7 +253,7 @@ const ProfileUi: React.FC<{
           <Card.Content>
             <List.Item
               title={I18n.Profile.Phone}
-              description="+966503418000"
+              description={user.Profile.phone}
               left={() => (
                 <View>
                   <List.Icon icon="phone" color={theme.colors.secondary} />
@@ -271,7 +262,7 @@ const ProfileUi: React.FC<{
             />
             <List.Item
               title={I18n.Profile.WhatsApp}
-              description="+966503418000"
+              description={user.Profile.whatsapp}
               left={() => (
                 <View>
                   <List.Icon icon="whatsapp" color={theme.colors.secondary} />
@@ -283,7 +274,7 @@ const ProfileUi: React.FC<{
       </List.Section>
 
       <List.Section>
-        <Card mode="elevated">
+        <Card mode="contained">
           <View
             style={{
               flex: 1,
@@ -306,7 +297,7 @@ const ProfileUi: React.FC<{
           <Card.Content>
             <List.Item
               title={I18n.Profile.About}
-              description="We're currently hiring account managers for our Pacific Northwest territory. The ideal candidate has 5+ years of sales experience and a demonstrated familiarity with the region. We're a fast-growing team with no cap on commission. Click here to learn more and apply."
+              description={user.Profile.about}
               descriptionNumberOfLines={5}
               left={() => (
                 <View>
@@ -318,8 +309,17 @@ const ProfileUi: React.FC<{
               )}
             />
             <List.Item
+              title={I18n.Profile.City}
+              description={user.Profile.city}
+              left={() => (
+                <View>
+                  <List.Icon icon="circle-small" color={theme.colors.outline} />
+                </View>
+              )}
+            />
+            <List.Item
               title={I18n.Profile.Education}
-              description="Bacholer Degree: Information Technology"
+              description={user.Profile.degree}
               descriptionNumberOfLines={2}
               left={() => (
                 <View>
@@ -341,7 +341,7 @@ const ProfileUi: React.FC<{
       </List.Section>
 
       <List.Section>
-        <Card mode="elevated">
+        <Card mode="contained">
           <View
             style={{
               flex: 1,
@@ -369,14 +369,14 @@ const ProfileUi: React.FC<{
                   <List.Icon icon="video-box" color={theme.colors.secondary} />
                 </View>
               )}
-              right={() => (
-                <View>
-                  <List.Icon
-                    icon="check"
-                    color={theme.colors.onSecondaryContainer}
-                  />
-                </View>
-              )}
+              // right={() => (
+              //   <View>
+              //     <List.Icon
+              //       icon="check"
+              //       color={theme.colors.onSecondaryContainer}
+              //     />
+              //   </View>
+              // )}
               //   onPress={() => console.log('video')}
             />
             <List.Item

@@ -1,12 +1,13 @@
 import * as AppleAuthentication from 'expo-apple-authentication'
 import { Button } from 'react-native-paper'
-import { useAuth } from '../context/auth'
+import { useAuthHook } from '../hook/auth'
 
 const MAppleButton: React.FC<{ text: string; dark: boolean }> = ({
   text,
   dark
 }) => {
-  const { loading, AppleSignIn } = useAuth()
+  const AppleSignIn = useAuthHook((state) => state.AppleSignIn)
+  const loading = useAuthHook((state) => state.loading)
 
   return (
     <Button

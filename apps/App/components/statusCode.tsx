@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Badge, Text } from 'react-native-paper'
-import { useTheme } from '../context/theme'
 import { View } from 'react-native'
+import { useThemeHook } from '../hook/theme'
 
 const light = {
   pending: '#FBC02D',
@@ -20,7 +20,7 @@ const dark = {
 }
 
 const StatusCode = () => {
-  const { Dark } = useTheme()
+  const Dark = useThemeHook((state) => state.Dark)
 
   return (
     <View>

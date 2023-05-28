@@ -2,22 +2,28 @@ import { Alert, StyleSheet, View } from 'react-native'
 import { Link, Stack, useNavigation } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import Page from '../layout/page'
-import { useTheme } from '../context/theme'
 import { Text, Switch, Divider, RadioButton, Button } from 'react-native-paper'
-import { useI18n } from '../context/i18n'
-import { useAuth } from '../context/auth'
 import { useNotification } from '../context/notification'
 import { useTheme as PaperTheme } from 'react-native-paper'
+import { useI18nHook } from '../hook/i18n'
+import { useThemeHook } from '../hook/theme'
+import { useAuthHook } from '../hook/auth'
 
 export default function Modal() {
   const navigation = useNavigation()
-  const { ToggleTheme, Dark } = useTheme()
-  const { SignOut, loading, auth } = useAuth()
+  const ToggleTheme = useThemeHook((state) => state.ToggleTheme)
+  const Dark = useThemeHook((state) => state.Dark)
+  const auth = useAuthHook((state) => state.auth)
+  const loading = useAuthHook((state) => state.loading)
+  const SignOut = useAuthHook((state) => state.SignOut)
+
   const isPresented = navigation.canGoBack()
-  const { Lang, ToggleI18n, I18n } = useI18n()
   const { notificationLoading, ToggleNotification, Notification } =
     useNotification()
   const theme = PaperTheme()
+  const ToggleI18n = useI18nHook((state) => state.ToggleI18n)
+  const I18n = useI18nHook((state) => state.I18n)
+  const Language = useI18nHook((state) => state.Language)
 
   return (
     <Page>
@@ -55,54 +61,22 @@ export default function Modal() {
         </View>
         <Divider style={styles.Divider} />
         <Text variant="bodyLarge">{I18n['App.Settings'].Language}</Text>
-        <View style={styles.items}>
-          <Text variant="labelLarge">{I18n['App.Settings'].Arabic}</Text>
-          <RadioButton
+        <View>
+          <RadioButton.Item
+            label={I18n['App.Settings'].Arabic}
             value="ar"
-            disabled={Lang === 'ar'}
-            status={Lang === 'ar' ? 'checked' : 'unchecked'}
-            onPress={() =>
-              Alert.alert(
-                I18n['App.Settings'].AppRestart,
-                I18n['App.Settings'].Wanttoproceed,
-                [
-                  {
-                    text: I18n.Alert.Yes,
-                    onPress: () => {
-                      ToggleI18n('ar')
-                    }
-                  },
-                  {
-                    text: I18n.Notifications.Cancel
-                  }
-                ]
-              )
-            }
+            disabled={Language === 'ar'}
+            status={Language === 'ar' ? 'checked' : 'unchecked'}
+            onPress={() => ToggleI18n('ar')}
           />
         </View>
-        <View style={styles.items}>
-          <Text variant="labelLarge">{I18n['App.Settings'].English}</Text>
-          <RadioButton
-            value="en"
-            disabled={Lang === 'en'}
-            status={Lang === 'en' ? 'checked' : 'unchecked'}
-            onPress={() =>
-              Alert.alert(
-                I18n['App.Settings'].AppRestart,
-                I18n['App.Settings'].Wanttoproceed,
-                [
-                  {
-                    text: I18n.Alert.Yes,
-                    onPress: () => {
-                      ToggleI18n('en')
-                    }
-                  },
-                  {
-                    text: I18n.Notifications.Cancel
-                  }
-                ]
-              )
-            }
+        <View>
+          <RadioButton.Item
+            value={I18n['App.Settings'].English}
+            label="English"
+            disabled={Language === 'en'}
+            status={Language === 'en' ? 'checked' : 'unchecked'}
+            onPress={() => ToggleI18n('en')}
           />
         </View>
         <Divider style={styles.Divider} />

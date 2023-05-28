@@ -6,15 +6,15 @@
     "Title": "Profile",
     "SignIn": "SignIn",
     "CV": "Sign In to set up your Profile",
-    "Hello": "Hello,",
+    "Hello": "Hello",
     "Guest": "Guest",
     "NewUser": "New User",
     "Edit": "Edit",
     "PersonalInformation": "Personal Information",
-    "Name": "Name",
-    "NationalId": "National ID",
+    "Name": "Full Name",
+    "NationalId": "National/Iqama ID",
     "Nationality": "Nationality",
-    "DateOfBirth": "Date of birth",
+    "age": "Date of birth",
     "Gender": "Gender",
     "City": "City",
     "GeneralInformation": "General Information",
@@ -28,7 +28,14 @@
     "Phone": "Phone Number",
     "WhatsApp": "WhatsApp",
     "CreateProfile": "Create Profile",
-    "Start": "Start"
+    "Start": "Start",
+    "firstname": "First Name",
+    "middlename": "Middle Name",
+    "grandfathername": "Grandfather Name",
+    "lastname": "Last Name",
+    "DateOfBirthInput": "Date of birth",
+    "Male": "Male",
+    "Female": "Female"
   },
   "App.Settings": {
     "Title": "App Settings",
@@ -53,7 +60,8 @@
     "RePassword": "Repeat Password",
     "SignUp": "SignUp",
     "Incorrect": "Incorrect email or password",
-    "HaveAccount": "Already have an account? SignIn"
+    "HaveAccount": "Already have an account? SignIn",
+    "Required": "Required!"
   },
   "SignUp": {
     "Title": "SignUp",
@@ -63,7 +71,8 @@
     "EmailUsed": "Email Used!",
     "PasswordStregth": "Password must contain 3 letters",
     "PasswordCompare": "Passwords do not match",
-    "EmailInvalid": "Invalid Email"
+    "EmailInvalid": "Invalid Email",
+    "Required": "Required!"
   },
   "Alert": {
     "Yes": "yes",
@@ -83,6 +92,20 @@
     "Title": "My Jobs"
   },
   "createprofile": {
-    "Title": "Create Profile"
+    "Title": "Create Profile",
+    "Create": "Create",
+    "CantChange": "Please make sure that the information entered is correct. It cannot be modified later!",
+    "Optional": "Optional",
+    "Done": "Done",
+    "Day": "Day",
+    "Month": "Month",
+    "Year": "Year"
+  },
+  "Language": {
+    "Arabic": "عربي",
+    "English": "English"
+  },
+  "Errors": {
+    "Unknown": "an error occurred"
   }
 }

@@ -6,6 +6,7 @@ import {
 } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { useTheme } from 'react-native-paper'
+import { useI18nHook } from '../hook/i18n'
 
 export default function Page(props: {
   children:
@@ -18,11 +19,12 @@ export default function Page(props: {
   scrollEnabled?: boolean
 }) {
   const theme = useTheme()
+  const Direction = useI18nHook((state) => state.Direction)
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { direction: Direction }]}>
       <ScrollView
-        alwaysBounceVertical={false}
+        // alwaysBounceVertical={false}
         style={styles.ScrollView}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{

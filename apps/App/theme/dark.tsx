@@ -1,6 +1,6 @@
 export const myDarkTheme = {
   dark: true,
-  roundness: 5,
+  roundness: 2,
   colors: {
     primary: '#D0BCFF',
     onPrimary: '#381E72',
