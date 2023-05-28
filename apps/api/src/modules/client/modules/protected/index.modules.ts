@@ -1,16 +1,12 @@
-import { Profile } from '../protected/profile/index.modules';
-import { Applicants } from './applicants/index.modules';
-import { Apply } from './apply/index.modules';
+import { Profile } from '../protected/profile/index.modules'
 
 export const ClientResolvers = {
-  Query: {
-    ...Applicants.Query,
-  },
+  // Query: {
+  //   ...Applicants.Query,
+  // },
   Mutation: {
-    ...Profile.Mutation,
-    ...Apply.Mutation,
-  },
+    ...Profile.Mutation
+  }
   // ...Posts.Resolver,
-  ...Applicants.Resolver,
-};
-export const ClientTypeDefs = [Profile.typeDef, Apply.typeDef, Applicants.typeDef];
+}
+export const ClientTypeDefs = [Profile.typeDef]

@@ -1,4 +1,4 @@
-import { Context } from '../../../../../context'
+import { MyContext } from '../../../../../context'
 import { createUserProfile } from './types'
 import gql from 'graphql-tag'
 
@@ -8,12 +8,11 @@ export const Create_Profile_TypeDefs = gql`
   }
   type Mutation {
     Create_UserProfile(
-      firstName: String
-      lastName: String
-      nationality: String
-      nationalID: String
-      dateOfBirth: String
-      gender: String
+      name: String!
+      nationality: String!
+      nationalID: String!
+      age: String!
+      gender: String!
     ): Profile
   }
 
@@ -22,34 +21,39 @@ export const Create_Profile_TypeDefs = gql`
     createdAt: DateTime
     updatedAt: DateTime
     userId: String
-    firstName: String
-    lastName: String
+    name: String
     nationality: String
     nationalID: String
-    dateOfBirth: String
+    age: String
     gender: String
-    whatsapp: String
+    city: String
     phone: String
+    whatsapp: String
+    about: String
+    degree: String
+    experiences: [JSON]
+    arabicVideo: String
+    englishVideo: String
   }
 
   scalar DateTime
+  scalar JSON
 `
 
 export const Create_Profile_Mutation = {
   Create_UserProfile: async (
-    _parent,
+    _parent: any,
     args: createUserProfile,
-    context: Context
+    context: MyContext
   ) => {
     const CreateProfile = await context.prisma.profile.create({
       data: {
-        firstName: args.firstName,
-        lastName: args.lastName,
+        userId: context.req.user.id,
+        name: args.name,
         nationality: args.nationality,
         nationalID: args.nationalID,
-        dateOfBirth: args.dateOfBirth,
-        gender: args.gender,
-        userId: context.req.user.id
+        age: args.age,
+        gender: args.gender
       }
     })
 

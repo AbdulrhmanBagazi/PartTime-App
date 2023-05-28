@@ -1,37 +1,40 @@
 export type eventFilterType = {
-  published: boolean;
-  status: EventStatus;
-};
+  published: boolean
+  status: EventStatus
+}
 
 export type userProfileType = {
-  id: string;
-  createdAt: DateTime;
-  updatedAt: DateTime;
-  userId: string;
-  firstName: string;
-  lastName: string;
-  nationality: string;
-  nationalID: string;
-  dateOfBirth: string;
-  gender: string;
-};
+  id: string
+  createdAt: DateTime
+  updatedAt: DateTime
+  userId: string
+  name: string
+  nationality: string
+  nationalID: string
+  age: string
+  gender: string
+  city: string
+  phone: string
+  whatsapp: string
+  about: string
+  degree: string
+  experiences: Json[]
+  arabicVideo: string
+  englishVideo: string
+}
 
 export type createUserProfile = {
-  firstName: string;
-  lastName: string;
-  nationality: string;
-  nationalID: string;
-  dateOfBirth: string;
-  gender: string;
-};
-
-export type updateUserProfile = {
-  firstName: string;
-  lastName: string;
-  nationality: string;
-  nationalID: string;
-  dateOfBirth: string;
-  gender: string;
-  phone: string;
-  whatsapp: string;
-};
+  name: string
+  nationality: string
+  nationalID: string
+  age: string
+  gender: string
+  city: string
+  phone: string
+  whatsapp: string
+  about: string
+  degree: string
+  experiences: Json[]
+  arabicVideo: string
+  englishVideo: string
+}

@@ -17,10 +17,6 @@ import {
   ClientTypeDefs
 } from './modules/client/modules/protected/index.modules'
 //client public
-import {
-  PublicClientResolvers,
-  PublicClientTypeDefs
-} from './modules/client/modules/public/index.modules' //public
 import { Client_PassportAuthenticate } from './modules/client/routes/passport/index.passport'
 import { ApolloServer } from '@apollo/server'
 import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled'
@@ -47,7 +43,7 @@ const Path = {
   PublicClientserver: '/graphql/public_client'
 }
 
-const startApolloServer = async () => {
+const startServer = async () => {
   const app = express()
   const httpServer = http.createServer(app)
 
@@ -72,13 +68,6 @@ const startApolloServer = async () => {
   //routes
   app.use('', Routes)
 
-  // app.use(
-  //   '/graphql',
-  //   cors<cors.CorsRequest>(),
-  //
-
-  // );
-
   //Client gql
   const Clientserver = new ApolloServer({
     resolvers: [ClientResolvers],
@@ -91,35 +80,35 @@ const startApolloServer = async () => {
     ]
   })
 
-  //public client
-  const PublicClientserver = new ApolloServer({
-    resolvers: [PublicClientResolvers],
-    typeDefs: [PublicClientTypeDefs],
-    plugins: [
-      process.env.NODE_ENV === 'production'
-        ? ApolloServerPluginLandingPageDisabled()
-        : ApolloServerPluginLandingPageGraphQLPlayground(),
-      ApolloServerPluginDrainHttpServer({ httpServer })
-    ]
-  })
+  // //public client
+  // const PublicClientserver = new ApolloServer({
+  //   resolvers: [PublicClientResolvers],
+  //   typeDefs: [PublicClientTypeDefs],
+  //   plugins: [
+  //     process.env.NODE_ENV === 'production'
+  //       ? ApolloServerPluginLandingPageDisabled()
+  //       : ApolloServerPluginLandingPageGraphQLPlayground(),
+  //     ApolloServerPluginDrainHttpServer({ httpServer })
+  //   ]
+  // })
 
   await Clientserver.start()
-  await PublicClientserver.start()
+  // await PublicClientserver.start()
 
   app.use(
     Path.Clientserver,
+    Client_PassportAuthenticate,
     expressMiddleware(Clientserver, {
-      context: context
-    }),
-    Client_PassportAuthenticate
-  )
-
-  app.use(
-    Path.PublicClientserver,
-    expressMiddleware(PublicClientserver, {
       context: context
     })
   )
+
+  // app.use(
+  //   Path.PublicClientserver,
+  //   expressMiddleware(PublicClientserver, {
+  //     context: context
+  //   })
+  // )
 
   //404
   app.get('*', (_req, res) => {
@@ -142,10 +131,9 @@ const startApolloServer = async () => {
   console.log(
     `🚀🔒 Client Server ready at http://localhost:${PORT}${Path.Clientserver}`
   )
-  console.log(
-    `🚀 Client Server ready at http://localhost:${PORT}${Path.PublicClientserver}`
-  )
+  // console.log(
+  //   `🚀 Client Server ready at http://localhost:${PORT}${Path.PublicClientserver}`
+  // )
 }
 
-//start express graphql
-startApolloServer()
+startServer()
