@@ -30,7 +30,7 @@ export const Create_Profile_TypeDefs = gql`
     phone: String
     whatsapp: String
     about: String
-    degree: String
+    education: String
     experiences: [JSON]
     arabicVideo: String
     englishVideo: String

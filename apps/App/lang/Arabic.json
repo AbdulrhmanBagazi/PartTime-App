@@ -12,7 +12,7 @@
     "Edit": "تعديل",
     "PersonalInformation": "المعلومات الشخصية",
     "Name": "الإسم الثلاثي",
-    "NationalId": "رقم الهوية/الإقامة",
+    "NationalId": "رقم الهوية",
     "Nationality": "الجنسية",
     "age": "تاريخ الميلاد",
     "Gender": "الجنس",
@@ -100,11 +100,15 @@
     "Month": "الشهر",
     "Year": "السنة"
   },
+  "updateprofile": {
+    "Update": "تحديث"
+  },
   "Language": {
     "Arabic": "عربي",
     "English": "English"
   },
   "Errors": {
-    "Unknown": "حدث خطآ"
+    "Unknown": "حدث خطآ",
+    "ProfileUpdated": "تم تحديث معلومات الملف الشخصي بنجاح"
   }
 }

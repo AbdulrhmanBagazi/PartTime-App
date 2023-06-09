@@ -70,6 +70,12 @@ export default () => {
                 }}
               />
               <Stack.Screen
+                name="updateprofile"
+                options={{
+                  headerBackTitleVisible: false
+                }}
+              />
+              <Stack.Screen
                 name="app.settings"
                 options={{
                   presentation: 'modal'
@@ -79,7 +85,9 @@ export default () => {
                 name="(auth)"
                 options={{
                   presentation: 'modal',
-                  headerShown: false
+                  title: ' '
+
+                  // headerShown: false
                 }}
               />
               <Stack.Screen

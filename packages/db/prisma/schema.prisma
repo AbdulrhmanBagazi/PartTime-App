@@ -45,7 +45,7 @@ model Profile {
     // General
     city         String?
     about        String?
-    degree       String?
+    education    String?
     experiences  Json[]
     //Video
     arabicVideo  String?

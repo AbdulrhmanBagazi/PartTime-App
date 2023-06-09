@@ -51,7 +51,9 @@ const EmailForm: React.FC<{ I18n: I18n }> = ({ I18n }) => {
       }) => (
         <>
           <TextInput
-            style={{ textAlign: Direction === 'rtl' ? 'right' : 'left' }}
+            style={{
+              textAlign: Direction === 'rtl' ? 'right' : 'left'
+            }}
             label={I18n.SignIn.Email}
             value={values.email}
             onChangeText={handleChange('email')}

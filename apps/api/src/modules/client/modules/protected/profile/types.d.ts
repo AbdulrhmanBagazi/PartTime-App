@@ -17,7 +17,7 @@ export type userProfileType = {
   phone: string
   whatsapp: string
   about: string
-  degree: string
+  education: string
   experiences: Json[]
   arabicVideo: string
   englishVideo: string
@@ -29,12 +29,13 @@ export type createUserProfile = {
   nationalID: string
   age: string
   gender: string
-  city: string
+}
+
+export type updateUserProfile = {
   phone: string
   whatsapp: string
   about: string
-  degree: string
+  city: string
+  education: string
   experiences: Json[]
-  arabicVideo: string
-  englishVideo: string
 }

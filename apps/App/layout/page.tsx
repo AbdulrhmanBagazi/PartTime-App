@@ -22,7 +22,15 @@ export default function Page(props: {
   const Direction = useI18nHook((state) => state.Direction)
 
   return (
-    <View style={[styles.container, { direction: Direction }]}>
+    <View
+      style={[
+        styles.container,
+        {
+          direction: Direction,
+          flexDirection: Direction === 'rtl' ? 'row-reverse' : 'row'
+        }
+      ]}
+    >
       <ScrollView
         // alwaysBounceVertical={false}
         style={styles.ScrollView}

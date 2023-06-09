@@ -7,9 +7,6 @@ import {
   TextInput,
   Button,
   HelperText,
-  Dialog,
-  RadioButton,
-  Portal,
   Snackbar
 } from 'react-native-paper'
 import { useMutation } from '@apollo/client'
@@ -25,10 +22,10 @@ import * as yup from 'yup'
 import React, { useState } from 'react'
 import { useI18nHook } from '../hook/i18n'
 import moment from 'moment'
-import { FlashList } from '@shopify/flash-list'
 import countriesjson from '../components/country/country.json'
 import countries from 'i18n-iso-countries'
 import { useAuthHook } from '../hook/auth'
+import PickerDialog from '../components/PickerDialog'
 
 export default function CreateProfile() {
   const theme = PaperTheme()
@@ -38,7 +35,6 @@ export default function CreateProfile() {
   const [visible, setVisible] = useState(false)
   const router = useRouter()
   const UpdateUserProfile = useAuthHook((state) => state.UpdateUserProfile)
-
   const [mutateFunction, { loading }] = useMutation<
     Create_UserProfileMutation,
     Create_UserProfileMutationVariables
@@ -51,7 +47,6 @@ export default function CreateProfile() {
   const [visibleGender, setVisibleGender] = useState(false)
   const showDialogGender = () => setVisibleGender(true)
   const hideDialogGender = () => setVisibleGender(false)
-
   const [visibleNationality, setVisibleNationality] = useState(false)
   const showDialogNationality = () => setVisibleNationality(true)
   const hideDialogNationality = () => setVisibleNationality(false)
@@ -63,7 +58,6 @@ export default function CreateProfile() {
     day: yup.number().required('Required'),
     month: yup.number().min(1).max(12).required('Required'),
     year: yup.string().length(4).required('Required'),
-    //
     nationality: yup.string().required('Required')
   })
 
@@ -120,7 +114,8 @@ export default function CreateProfile() {
           options={{
             gestureEnabled: !loading,
             headerBackVisible: !loading,
-            title: I18n.createprofile.Title
+            // title: I18n.createprofile.Title
+            title: ' '
           }}
         />
         <View style={{ flex: 1, marginVertical: 5 }}>
@@ -196,6 +191,9 @@ export default function CreateProfile() {
                 {' '}
               </HelperText>
 
+              <Text variant="labelLarge" style={{ letterSpacing: 1 }}>
+                {I18n.Profile.DateOfBirthInput}
+              </Text>
               <View
                 style={{
                   flex: 1,
@@ -302,95 +300,37 @@ export default function CreateProfile() {
                 {' '}
               </HelperText>
 
-              <Portal>
-                <Dialog
-                  visible={visibleGender}
-                  onDismiss={hideDialogGender}
-                  style={{ direction: Direction }}
-                >
-                  <Dialog.Content>
-                    <View>
-                      <RadioButton.Item
-                        label={I18n.Profile.Male}
-                        value="Male"
-                        onPress={() => {
-                          setValues({
-                            ...values,
-                            gender: 'Male'
-                          }),
-                            hideDialogGender()
-                        }}
-                      />
-                      <RadioButton.Item
-                        label={I18n.Profile.Female}
-                        value="Female"
-                        onPress={() => {
-                          setValues({
-                            ...values,
-                            gender: 'Female'
-                          }),
-                            hideDialogGender()
-                        }}
-                      />
-                    </View>
-                  </Dialog.Content>
-                  <Dialog.Actions>
-                    <Button onPress={hideDialogGender}>
-                      {I18n.createprofile.Done}
-                    </Button>
-                  </Dialog.Actions>
-                </Dialog>
-                {/* country */}
-                <Dialog
-                  visible={visibleNationality}
-                  onDismiss={hideDialogNationality}
-                  style={{ direction: Direction }}
-                >
-                  <Dialog.Content>
-                    <View
-                      style={{
-                        height: 500
-                      }}
-                    >
-                      <FlashList
-                        data={countriesjson}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={({ item }) => (
-                          <RadioButton.Item
-                            label={countries.getName(
-                              item['alpha-2'],
-                              Language,
-                              {
-                                select: 'official'
-                              }
-                            )}
-                            value={item['alpha-2']}
-                            status={
-                              item['alpha-2'] === values.nationality
-                                ? 'checked'
-                                : 'unchecked'
-                            }
-                            onPress={() => {
-                              setValues({
-                                ...values,
-                                nationality: item['alpha-2']
-                              }),
-                                hideDialogNationality()
-                            }}
-                          />
-                        )}
-                        estimatedItemSize={200}
-                      />
-                    </View>
-                  </Dialog.Content>
+              {/* Gender */}
+              <PickerDialog
+                value={values.gender}
+                visible={visibleGender}
+                hideModal={hideDialogGender}
+                data={[
+                  { label: I18n.Profile.Male, value: 'Male' },
+                  { label: I18n.Profile.Female, value: 'Female' }
+                ]}
+                onPress={(e) => {
+                  setValues({
+                    ...values,
+                    gender: e
+                  })
+                }}
+              />
 
-                  <Dialog.Actions>
-                    <Button onPress={hideDialogNationality}>
-                      {I18n.createprofile.Done}
-                    </Button>
-                  </Dialog.Actions>
-                </Dialog>
-              </Portal>
+              {/* Country */}
+              <PickerDialog
+                value={values.nationality}
+                visible={visibleNationality}
+                hideModal={hideDialogNationality}
+                data={countriesjson}
+                onPress={(e) => {
+                  setValues({
+                    ...values,
+                    nationality: e
+                  })
+                }}
+                country
+              />
 
               <Button
                 onPress={() => handleSubmit()}

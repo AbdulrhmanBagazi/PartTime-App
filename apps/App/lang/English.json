@@ -12,7 +12,7 @@
     "Edit": "Edit",
     "PersonalInformation": "Personal Information",
     "Name": "Full Name",
-    "NationalId": "National/Iqama ID",
+    "NationalId": "National ID",
     "Nationality": "Nationality",
     "age": "Date of birth",
     "Gender": "Gender",
@@ -101,11 +101,15 @@
     "Month": "Month",
     "Year": "Year"
   },
+  "updateprofile": {
+    "Update": "Update"
+  },
   "Language": {
     "Arabic": "عربي",
     "English": "English"
   },
   "Errors": {
-    "Unknown": "an error occurred"
+    "Unknown": "an error occurred",
+    "ProfileUpdated": "Profile information has been updated successfully"
   }
 }

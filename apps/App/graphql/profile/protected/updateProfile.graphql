@@ -1,0 +1,35 @@
+mutation Update_UserProfile(
+  $phone: String
+  $whatsapp: String
+  $about: String
+  $city: String
+  $education: String
+  $experiences: [JSON]
+) {
+  Update_UserProfile(
+    phone: $phone
+    whatsapp: $whatsapp
+    about: $about
+    city: $city
+    education: $education
+    experiences: $experiences
+  ) {
+    id
+    createdAt
+    updatedAt
+    userId
+    name
+    nationality
+    nationalID
+    age
+    gender
+    city
+    phone
+    whatsapp
+    about
+    education
+    experiences
+    arabicVideo
+    englishVideo
+  }
+}

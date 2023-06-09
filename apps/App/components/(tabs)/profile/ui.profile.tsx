@@ -240,10 +240,11 @@ const ProfileUi: React.FC<{
             }}
           >
             <List.Subheader>{I18n.Profile.ContactInformation}</List.Subheader>
+            {/* <Card.Title title={I18n.Profile.ContactInformation} /> */}
             <Button
               icon="pencil"
               mode="text"
-              onPress={() => console.log('Pressed')}
+              onPress={() => router.push('updateprofile')}
               textColor={theme.colors.tertiary}
             >
               {I18n.Profile.Edit}
@@ -256,7 +257,7 @@ const ProfileUi: React.FC<{
               description={user.Profile.phone}
               left={() => (
                 <View>
-                  <List.Icon icon="phone" color={theme.colors.secondary} />
+                  <List.Icon icon="circle-small" color={theme.colors.outline} />
                 </View>
               )}
             />
@@ -265,46 +266,23 @@ const ProfileUi: React.FC<{
               description={user.Profile.whatsapp}
               left={() => (
                 <View>
-                  <List.Icon icon="whatsapp" color={theme.colors.secondary} />
+                  <List.Icon icon="circle-small" color={theme.colors.outline} />
                 </View>
               )}
             />
           </Card.Content>
-        </Card>
-      </List.Section>
-
-      <List.Section>
-        <Card mode="contained">
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center'
-            }}
-          >
-            <List.Subheader>{I18n.Profile.GeneralInformation}</List.Subheader>
-            <Button
-              icon="pencil"
-              mode="text"
-              onPress={() => console.log('Pressed')}
-              textColor={theme.colors.tertiary}
-            >
-              {I18n.Profile.Edit}
-            </Button>
-          </View>
-          <Divider />
+          <List.Subheader>{I18n.Profile.GeneralInformation}</List.Subheader>
           <Card.Content>
             <List.Item
               title={I18n.Profile.About}
               description={user.Profile.about}
-              descriptionNumberOfLines={5}
+              descriptionNumberOfLines={10}
+              descriptionStyle={{
+                textAlign: 'justify'
+              }}
               left={() => (
                 <View>
-                  <List.Icon
-                    icon="information"
-                    color={theme.colors.secondary}
-                  />
+                  <List.Icon icon="circle-small" color={theme.colors.outline} />
                 </View>
               )}
             />
@@ -319,7 +297,7 @@ const ProfileUi: React.FC<{
             />
             <List.Item
               title={I18n.Profile.Education}
-              description={user.Profile.degree}
+              description={user.Profile.education}
               descriptionNumberOfLines={2}
               left={() => (
                 <View>
