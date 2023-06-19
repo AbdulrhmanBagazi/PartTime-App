@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server"
+    "api": "ts-node-dev --no-notify --respawn --transpile-only src/server"
   },
   "dependencies": {
     "@apollo/server": "^4.7.0",

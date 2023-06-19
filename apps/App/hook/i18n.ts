@@ -2,6 +2,8 @@ import { create } from 'zustand'
 import Arabic from '../lang/Arabic.json'
 import English from '../lang/English.json'
 import * as SecureStore from 'expo-secure-store'
+import * as Updates from 'expo-updates'
+import { Platform, I18nManager } from 'react-native'
 
 type ar = 'ar'
 type en = 'en'
@@ -24,11 +26,21 @@ export const useI18nHook = create<I18nType>((set) => ({
   Direction: 'rtl',
   ToggleI18n: async (Language: Language) => {
     await SecureStore.setItemAsync('AppLang', Language)
+    I18nManager.allowRTL(Language === 'ar' ? true : false)
+    I18nManager.forceRTL(Language === 'ar' ? true : false)
+
     set(() => ({
       Language,
       I18n: Language === 'en' ? English : Arabic,
       Direction: Language === 'en' ? 'ltr' : 'rtl'
     }))
+
+    if (Platform.OS !== 'ios') {
+      const x = await Updates.reloadAsync()
+
+      console.log(x)
+      return
+    }
   },
   I18nStore: async () => {
     const Language = await SecureStore.getItemAsync('AppLang')

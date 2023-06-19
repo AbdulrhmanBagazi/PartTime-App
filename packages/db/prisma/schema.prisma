@@ -13,17 +13,19 @@ datasource db {
 model User {
     id                String      @id @default(uuid()) @db.Uuid
     email             String      @unique
-    password          String?
     verfied           Boolean     @default(false)
-    verificationEmail DateTime?
     suspended         Boolean     @default(false)
-    Type              AccountType @default(EMAIL)
-    AccountId         String?
-    AppleId           String?
+    type              AccountType @default(EMAIL)
     createdAt         DateTime    @default(now())
+    //
+    accountId         String?
+    appleId           String?
     updatedAt         DateTime    @updatedAt
     //
     Profile           Profile?
+    //
+    password          String?
+    verificationEmail DateTime?
 }
 
 model Profile {
@@ -66,4 +68,11 @@ model Vendor {
     suspended Boolean  @default(false)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+}
+
+model Admin {
+    id       String @id @default(uuid()) @db.Uuid
+    email    String @unique
+    name     String
+    password String
 }

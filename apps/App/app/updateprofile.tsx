@@ -36,13 +36,14 @@ export default function UpdateProfile() {
   const Direction = useI18nHook((state) => state.Direction)
   const user = useAuthHook((state) => state.user)
   const [visibleError, setVisibleError] = useState(false)
+  const [visibleUpdated, setVisibleUpdated] = useState(false)
   const UpdateUserProfile = useAuthHook((state) => state.UpdateUserProfile)
   const [mutateFunction, { loading }] = useMutation<
     Update_UserProfileMutation,
     Update_UserProfileMutationVariables
   >(Update_UserProfileDocument, {
     onError() {
-      setVisibleError(!visibleError)
+      setVisibleError(true)
     }
   })
   const initialValues: Update_UserProfileMutationVariables = {
@@ -84,6 +85,7 @@ export default function UpdateProfile() {
         }
       })
 
+      setVisibleUpdated(true)
       return UpdateUserProfile(val.data.Update_UserProfile)
     } catch (error) {
       setVisibleError(!visibleError)
@@ -260,7 +262,7 @@ export default function UpdateProfile() {
               <Button
                 onPress={() => handleSubmit()}
                 mode="contained"
-                disabled={!isValid || loading}
+                disabled={!isValid || loading || visibleError || visibleUpdated}
               >
                 {I18n.updateprofile.Update}
               </Button>
@@ -271,10 +273,18 @@ export default function UpdateProfile() {
 
       <Snackbar
         visible={visibleError}
-        onDismiss={() => setVisibleError(!visibleError)}
+        onDismiss={() => setVisibleError(false)}
         duration={1000}
       >
         {I18n.Errors.Unknown}
+      </Snackbar>
+
+      <Snackbar
+        visible={visibleUpdated}
+        onDismiss={() => setVisibleUpdated(false)}
+        duration={1000}
+      >
+        {I18n.Errors.ProfileUpdated}
       </Snackbar>
     </View>
   )

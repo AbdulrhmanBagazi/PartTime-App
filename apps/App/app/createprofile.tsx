@@ -32,7 +32,8 @@ export default function CreateProfile() {
   const I18n = useI18nHook((state) => state.I18n)
   const Language = useI18nHook((state) => state.Language)
   const Direction = useI18nHook((state) => state.Direction)
-  const [visible, setVisible] = useState(false)
+  const [visibleError, setVisibleError] = useState(false)
+  const [visibleUpdated, setVisibleUpdated] = useState(false)
   const router = useRouter()
   const UpdateUserProfile = useAuthHook((state) => state.UpdateUserProfile)
   const [mutateFunction, { loading }] = useMutation<
@@ -40,7 +41,7 @@ export default function CreateProfile() {
     Create_UserProfileMutationVariables
   >(Create_UserProfileDocument, {
     onError() {
-      setVisible(!visible)
+      setVisibleError(true)
     }
   })
 
@@ -77,8 +78,6 @@ export default function CreateProfile() {
     nationality: string
   }) => {
     try {
-      setVisible(false)
-      // const date = await moment(new Date(age.val)).format('YYYY-MM-DD');
       const D = await convertToArabicNumber(values.day)
       const M = await convertToArabicNumber(values.month)
       const Y = await convertToArabicNumber(values.year)
@@ -99,11 +98,11 @@ export default function CreateProfile() {
         }
       })
 
+      setVisibleUpdated(true)
       await UpdateUserProfile(val.data.Create_UserProfile)
-
       return router.back()
     } catch (error) {
-      return setVisible(!visible)
+      return setVisibleError(true)
     }
   }
 
@@ -346,11 +345,19 @@ export default function CreateProfile() {
       </Page>
 
       <Snackbar
-        visible={visible}
-        onDismiss={() => setVisible(!visible)}
+        visible={visibleError}
+        onDismiss={() => setVisibleError(false)}
         duration={1000}
       >
         {I18n.Errors.Unknown}
+      </Snackbar>
+
+      <Snackbar
+        visible={visibleUpdated}
+        onDismiss={() => setVisibleUpdated(false)}
+        duration={1000}
+      >
+        {I18n.Errors.ProfileUpdated}
       </Snackbar>
     </View>
   )

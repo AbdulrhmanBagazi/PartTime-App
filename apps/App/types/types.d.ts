@@ -4,9 +4,9 @@ import { Profile } from '../graphql/generated'
 export type UserTypes = {
   email: string
   verfied: boolean
-  Type: string
+  type: string
   verificationEmail: string
-  AppleId?: string
+  appleId?: string
   Profile: Profile | null
 }
 

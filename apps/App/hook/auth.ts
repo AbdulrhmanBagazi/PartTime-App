@@ -128,9 +128,9 @@ export const useAuthHook = create<AuthContextType>((set) => ({
       return [error, data]
     }
 
-    if (data?.user?.Type === 'APPLE' && data?.user?.AppleId) {
+    if (data?.user?.type === 'APPLE' && data?.user?.appleId) {
       const check = await AppleAuthentication.getCredentialStateAsync(
-        data?.user?.AppleId
+        data?.user?.appleId
       )
 
       if (check === 0) {

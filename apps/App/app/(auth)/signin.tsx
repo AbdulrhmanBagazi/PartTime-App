@@ -7,7 +7,7 @@ import { Button, Divider } from 'react-native-paper'
 import EmailForm from '../../components/emailForm'
 import SignupForm from '../../components/signupFrom'
 import { Image } from 'expo-image'
-import { Keyboard, Platform, View } from 'react-native'
+import { I18nManager, Keyboard, Platform, View } from 'react-native'
 import { useTheme as PaperTheme } from 'react-native-paper'
 import { useI18nHook } from '../../hook/i18n'
 import { useThemeHook } from '../../hook/theme'
@@ -30,9 +30,18 @@ export default function SignIn() {
 
   const Switch = async (val: string) => {
     Keyboard.dismiss()
+
     if (val === 'signin') {
+      if (I18nManager.isRTL && Platform.OS === 'android') {
+        return ScrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true })
+      }
+
       return ScrollViewRef.current.scrollToEnd({ animated: true })
     } else {
+      if (I18nManager.isRTL && Platform.OS === 'android') {
+        return ScrollViewRef.current.scrollToEnd({ animated: true })
+      }
+
       return ScrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true })
     }
   }
@@ -63,14 +72,16 @@ export default function SignIn() {
 
   return (
     <Page>
-      <StatusBar style="light" animated />
+      <StatusBar
+        style={Platform.OS === 'ios' ? 'light' : Dark ? 'light' : 'dark'}
+        animated
+      />
       <Stack.Screen
         options={{
           gestureEnabled: !loading,
           headerBackVisible: !loading
         }}
       />
-
       <View
         style={{
           flex: 1,
@@ -88,18 +99,18 @@ export default function SignIn() {
           }}
         />
       </View>
-
       <ScrollView
         horizontal
         pagingEnabled
         scrollEnabled={false}
         showsHorizontalScrollIndicator={false}
         ref={ScrollViewRef}
+        style={{ flexGrow: 1 }}
       >
         <View
           style={{
             flex: 1,
-            width: windowWidth - 30,
+            width: windowWidth - 20,
             justifyContent: 'center'
           }}
         >
@@ -119,13 +130,15 @@ export default function SignIn() {
             <Divider
               style={{ width: 100, marginVertical: 10, alignSelf: 'center' }}
             />
-            <MAppleButton dark={Dark} text={I18n.SignIn.Apple} />
+            {Platform.OS === 'ios' ? (
+              <MAppleButton dark={Dark} text={I18n.SignIn.Apple} />
+            ) : null}
           </View>
         </View>
         <View
           style={{
             flex: 1,
-            width: windowWidth - 30,
+            width: windowWidth - 20,
             justifyContent: 'center'
           }}
         >
@@ -134,7 +147,7 @@ export default function SignIn() {
             <Button
               disabled={loading}
               mode="text"
-              onPress={() => Switch('signout')}
+              onPress={() => Switch('signup')}
               style={{ marginTop: 10 }}
               textColor={theme.colors.secondary}
             >
@@ -143,7 +156,6 @@ export default function SignIn() {
           </View>
         </View>
       </ScrollView>
-
       {/* {value === 'signin' ? (
     
       ) : (

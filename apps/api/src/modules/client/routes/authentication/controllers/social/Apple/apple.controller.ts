@@ -21,16 +21,16 @@ const AppleSignIn = async (req: Request, res: Response) => {
 
     const user = await prisma.user.findFirst({
       where: {
-        AccountId: appleIdTokenClaims?.sub,
-        Type: 'APPLE'
+        accountId: appleIdTokenClaims?.sub,
+        type: 'APPLE'
       },
       select: {
         id: true,
         email: true,
         verfied: true,
         verificationEmail: true,
-        Type: true,
-        AppleId: true,
+        type: true,
+        appleId: true,
         Profile: true
       }
     })
@@ -62,17 +62,17 @@ const AppleSignIn = async (req: Request, res: Response) => {
           email: appleIdTokenClaims?.email.toLowerCase(),
           verfied: appleIdTokenClaims?.email_verified === 'true',
           verificationEmail: now,
-          Type: 'APPLE',
-          AccountId: appleIdTokenClaims?.sub,
-          AppleId: data.appleId
+          type: 'APPLE',
+          accountId: appleIdTokenClaims?.sub,
+          appleId: data.appleId
         },
         select: {
           id: true,
           email: true,
           verfied: true,
-          Type: true,
+          type: true,
           verificationEmail: true,
-          AppleId: true,
+          appleId: true,
           Profile: true
         }
       })

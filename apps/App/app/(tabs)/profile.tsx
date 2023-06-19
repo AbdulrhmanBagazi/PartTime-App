@@ -16,7 +16,7 @@ export default function Profile() {
   const router = useRouter()
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, direction: 'rtl' }}>
       <Page>
         <ProfileUi auth={auth} user={user} I18n={I18n} Lang={Language} />
       </Page>
@@ -24,7 +24,7 @@ export default function Profile() {
         <Button
           icon="login"
           mode="contained"
-          onPress={() => router.push('/(auth)/signin')}
+          onPress={() => router.push('/signin')}
           disabled={loading}
           style={{
             position: 'absolute',

@@ -4,8 +4,10 @@ import {
   MenuItemLink,
   useResourceDefinitions,
   useSidebarState,
-  MenuProps,
+  MenuProps
 } from 'react-admin'
+import { Icons } from '../theme/icons'
+import ViewListIcon from '@mui/icons-material/ViewList'
 
 const MyMenu = (props: MenuProps | any) => {
   const resources = useResourceDefinitions()
@@ -15,18 +17,16 @@ const MyMenu = (props: MenuProps | any) => {
     <Menu {...props}>
       <DashboardMenuItem />
       {Object.keys(resources).map((name) => {
-        if (name === 'eventday') {
-          return null
-        }
-
         return (
           <MenuItemLink
             key={name}
             to={`/${name}`}
-            primaryText={(resources[name].options && resources[name].options.label) || name}
+            primaryText={
+              (resources[name].options && resources[name].options.label) || name
+            }
             onClick={props.onMenuClick}
             sidebarIsOpen={open}
-            leftIcon={resources[name].icon}
+            leftIcon={Icons[name] || <ViewListIcon />}
           />
         )
       })}

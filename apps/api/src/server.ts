@@ -11,7 +11,8 @@ import morgan from 'morgan'
 import passport from 'passport'
 //auth routes
 import Routes from './routes/index.routes'
-//client
+//admin client
+import { AdminResolvers, AdminTypeDefs } from './modules/admin/index.modules'
 import {
   ClientResolvers,
   ClientTypeDefs
@@ -23,12 +24,13 @@ import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/dis
 import { ApolloServerPluginLandingPageGraphQLPlayground } from '@apollo/server-plugin-landing-page-graphql-playground'
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 import { expressMiddleware } from '@apollo/server/express4'
+import { Admin_PassportAuthenticate } from './modules/admin/routes/passport/index.passport'
 
 const PORT = process.env.PORT || 4000
 const AdminURL =
   process.env.NODE_ENV === 'production'
     ? (process.env.ADMIN_URL as string)
-    : 'http://localhost:5001'
+    : 'http://192.168.100.15:5173'
 const ClientURL =
   process.env.NODE_ENV === 'production'
     ? (process.env.CLIENT_URL as string)
@@ -40,7 +42,8 @@ const CompaniesURL =
 
 const Path = {
   Clientserver: '/graphql/client',
-  PublicClientserver: '/graphql/public_client'
+  PublicClientserver: '/graphql/public_client',
+  Adminserver: '/graphql/admin'
 }
 
 const startServer = async () => {
@@ -68,6 +71,18 @@ const startServer = async () => {
   //routes
   app.use('', Routes)
 
+  //Admin gql
+  const Adminserver = new ApolloServer({
+    resolvers: [AdminResolvers],
+    typeDefs: [AdminTypeDefs],
+    plugins: [
+      process.env.NODE_ENV === 'production'
+        ? ApolloServerPluginLandingPageDisabled()
+        : ApolloServerPluginLandingPageGraphQLPlayground(),
+      ApolloServerPluginDrainHttpServer({ httpServer })
+    ]
+  })
+
   //Client gql
   const Clientserver = new ApolloServer({
     resolvers: [ClientResolvers],
@@ -92,8 +107,17 @@ const startServer = async () => {
   //   ]
   // })
 
+  await Adminserver.start()
   await Clientserver.start()
   // await PublicClientserver.start()
+
+  app.use(
+    Path.Adminserver,
+    Admin_PassportAuthenticate,
+    expressMiddleware(Adminserver, {
+      context: context
+    })
+  )
 
   app.use(
     Path.Clientserver,
@@ -129,11 +153,11 @@ const startServer = async () => {
     httpServer.listen({ port: PORT }, resolve)
   )
   console.log(
-    `🚀🔒 Client Server ready at http://localhost:${PORT}${Path.Clientserver}`
+    `🔒 Client Server ready at http://localhost:${PORT}${Path.Clientserver}`
   )
-  // console.log(
-  //   `🚀 Client Server ready at http://localhost:${PORT}${Path.PublicClientserver}`
-  // )
+  console.log(
+    `🔒 Admin Server ready at http://localhost:${PORT}${Path.Adminserver}`
+  )
 }
 
 startServer()

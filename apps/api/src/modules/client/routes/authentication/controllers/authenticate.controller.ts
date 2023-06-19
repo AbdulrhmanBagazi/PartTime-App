@@ -9,10 +9,10 @@ const Authenticate = async (req: Request, res: Response) => {
         id: user.id,
         email: user.email,
         verfied: user.verfied,
-        Type: user.Type,
+        type: user.type,
         Profile: user.Profile,
         verificationEmail: user.verificationEmail,
-        AppleId: user?.AppleId
+        appleId: user?.appleId
       }
     })
   } catch (e: unknown) {

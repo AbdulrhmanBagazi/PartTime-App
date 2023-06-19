@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: process.env.REACT_APP_API,
+  apiUrl: import.meta.env.VITE_API
 }

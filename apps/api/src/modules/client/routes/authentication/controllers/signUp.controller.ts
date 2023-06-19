@@ -19,7 +19,7 @@ const SignUp = async (req: Request, res: Response) => {
         id: true,
         email: true,
         verfied: true,
-        Type: true,
+        type: true,
         verificationEmail: true,
         Profile: true
       }
@@ -49,7 +49,7 @@ const SignUp = async (req: Request, res: Response) => {
         id: User.id,
         email: User.email,
         verfied: User.verfied,
-        Type: User.Type,
+        type: User.type,
         verificationEmail: User.verificationEmail,
         Profile: User.Profile
       }

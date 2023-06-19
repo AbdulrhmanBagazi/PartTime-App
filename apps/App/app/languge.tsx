@@ -1,5 +1,5 @@
 import { Button, useTheme as PaperTheme } from 'react-native-paper'
-import { View } from 'react-native'
+import { Alert, Platform, View } from 'react-native'
 import { Image } from 'expo-image'
 import { useI18nHook, Language } from '../hook/i18n'
 import { useRouter } from 'expo-router'
@@ -49,12 +49,51 @@ export default function LanguageSelect() {
       >
         <Button
           mode="contained"
-          onPress={() => HandleLanguage('ar')}
+          onPress={() =>
+            Platform.OS === 'ios'
+              ? HandleLanguage('ar')
+              : Alert.alert(
+                  I18n['App.Settings'].AppRestart,
+                  I18n['App.Settings'].Wanttoproceed,
+                  [
+                    {
+                      text: I18n.Alert.Yes,
+                      onPress: () => {
+                        HandleLanguage('ar')
+                      }
+                    },
+                    {
+                      text: I18n.Notifications.Cancel
+                    }
+                  ]
+                )
+          }
           style={{ marginVertical: 20 }}
         >
           {I18n.Language.Arabic}
         </Button>
-        <Button mode="contained" onPress={() => HandleLanguage('en')}>
+        <Button
+          mode="contained"
+          onPress={() =>
+            Platform.OS === 'ios'
+              ? HandleLanguage('en')
+              : Alert.alert(
+                  I18n['App.Settings'].AppRestart,
+                  I18n['App.Settings'].Wanttoproceed,
+                  [
+                    {
+                      text: I18n.Alert.Yes,
+                      onPress: () => {
+                        HandleLanguage('en')
+                      }
+                    },
+                    {
+                      text: I18n.Notifications.Cancel
+                    }
+                  ]
+                )
+          }
+        >
           {I18n.Language.English}
         </Button>
       </View>

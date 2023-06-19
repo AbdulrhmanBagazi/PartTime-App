@@ -18,16 +18,16 @@ const GoogleSignIn = async (req: Request, res: Response) => {
 
     const user = await prisma.user.findFirst({
       where: {
-        AccountId: GoogleUser?.sub,
-        Type: 'GOOGLE'
+        accountId: GoogleUser?.sub,
+        type: 'GOOGLE'
       },
       select: {
         id: true,
         email: true,
         verfied: true,
         verificationEmail: true,
-        Type: true,
-        AppleId: true,
+        type: true,
+        appleId: true,
         Profile: true
       }
     })
@@ -55,7 +55,7 @@ const GoogleSignIn = async (req: Request, res: Response) => {
           id: user.id,
           email: user.email,
           verfied: user.verfied,
-          Type: user.Type,
+          type: user.type,
           verificationEmail: user.verificationEmail
         }
       })
@@ -67,16 +67,16 @@ const GoogleSignIn = async (req: Request, res: Response) => {
           email: GoogleUser?.email.toLowerCase(),
           verfied: GoogleUser?.email_verified,
           verificationEmail: now,
-          Type: 'GOOGLE',
-          AccountId: GoogleUser?.sub
+          type: 'GOOGLE',
+          accountId: GoogleUser?.sub
         },
         select: {
           id: true,
           email: true,
           verfied: true,
           verificationEmail: true,
-          Type: true,
-          AppleId: true,
+          type: true,
+          appleId: true,
           Profile: true
         }
       })
@@ -107,7 +107,7 @@ const GoogleSignIn = async (req: Request, res: Response) => {
           id: newUser.id,
           email: newUser.email,
           verfied: newUser.verfied,
-          Type: newUser.Type,
+          type: newUser.type,
           verificationEmail: newUser.verificationEmail
         }
       })

@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, Platform, StyleSheet, View } from 'react-native'
 import { Link, Stack, useNavigation } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import Page from '../layout/page'
@@ -27,7 +27,10 @@ export default function Modal() {
 
   return (
     <Page>
-      <StatusBar style="light" animated />
+      <StatusBar
+        style={Platform.OS === 'ios' ? 'light' : Dark ? 'light' : 'dark'}
+        animated
+      />
       <Stack.Screen
         options={{
           title: I18n['App.Settings'].Title,
@@ -67,7 +70,25 @@ export default function Modal() {
             value="ar"
             disabled={Language === 'ar'}
             status={Language === 'ar' ? 'checked' : 'unchecked'}
-            onPress={() => ToggleI18n('ar')}
+            onPress={() =>
+              Platform.OS === 'ios'
+                ? ToggleI18n('ar')
+                : Alert.alert(
+                    I18n['App.Settings'].AppRestart,
+                    I18n['App.Settings'].Wanttoproceed,
+                    [
+                      {
+                        text: I18n.Alert.Yes,
+                        onPress: () => {
+                          ToggleI18n('ar')
+                        }
+                      },
+                      {
+                        text: I18n.Notifications.Cancel
+                      }
+                    ]
+                  )
+            }
           />
         </View>
         <View>
@@ -76,7 +97,25 @@ export default function Modal() {
             label="English"
             disabled={Language === 'en'}
             status={Language === 'en' ? 'checked' : 'unchecked'}
-            onPress={() => ToggleI18n('en')}
+            onPress={() =>
+              Platform.OS === 'ios'
+                ? ToggleI18n('en')
+                : Alert.alert(
+                    I18n['App.Settings'].AppRestart,
+                    I18n['App.Settings'].Wanttoproceed,
+                    [
+                      {
+                        text: I18n.Alert.Yes,
+                        onPress: () => {
+                          ToggleI18n('en')
+                        }
+                      },
+                      {
+                        text: I18n.Notifications.Cancel
+                      }
+                    ]
+                  )
+            }
           />
         </View>
         <Divider style={styles.Divider} />

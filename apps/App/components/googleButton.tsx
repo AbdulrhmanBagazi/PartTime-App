@@ -59,8 +59,8 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
             marginLeft: -15,
             margin: 1,
             borderTopLeftRadius: 10,
-            borderBottomLeftRadius: 10,
-            opacity: loading ? 0.25 : 1
+            borderBottomLeftRadius: 10
+            // opacity: loading ? 0.25 : 1
           }}
         >
           <Image

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "scheme": "App",
+    "scheme": "app",
     "name": "App",
     "slug": "App",
     "version": "1.0.0",
@@ -9,8 +9,12 @@
     "userInterfaceStyle": "automatic",
     "build": {
       "preview": {
+        "distribution": "internal",
+        "android": {
+          "buildType": "apk"
+        },
         "ios": {
-          "distribution": "internal"
+          "simulator": true
         }
       },
       "production": {}
@@ -31,12 +35,10 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.wiseman.parttime",
-      "ios": {
-        "config": {
-          "usesNonExemptEncryption": false
-        },
-        "googleServicesFile": "./config/firebase/GoogleService-Info.plist"
-      }
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "googleServicesFile": "./config/firebase/GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
