@@ -1,5 +1,5 @@
 import { MyContext } from '../../../../../context'
-import { updateUserProfile } from './types'
+import { UserProfile } from './types'
 import gql from 'graphql-tag'
 
 export const Update_Profile_TypeDefs = gql`
@@ -7,14 +7,7 @@ export const Update_Profile_TypeDefs = gql`
     test: String
   }
   type Mutation {
-    Update_UserProfile(
-      phone: String
-      whatsapp: String
-      about: String
-      city: String
-      education: String
-      experiences: [JSON]
-    ): Profile
+    Update_UserProfile(name: String!, age: String!, gender: String!): Profile
   }
 
   scalar JSON
@@ -23,17 +16,14 @@ export const Update_Profile_TypeDefs = gql`
 export const Update_Profile_Mutation = {
   Update_UserProfile: async (
     _parent: any,
-    args: updateUserProfile,
+    args: UserProfile,
     context: MyContext
   ) => {
     const CreateProfile = await context.prisma.profile.update({
       data: {
-        phone: args.phone,
-        whatsapp: args.whatsapp,
-        about: args.about,
-        city: args.city,
-        education: args.education,
-        experiences: args.experiences
+        name: args.name,
+        age: args.age,
+        gender: args.gender
       },
       where: {
         userId: context.req.user.id
