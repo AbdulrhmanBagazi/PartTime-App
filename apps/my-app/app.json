@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.bagazi.my-app"
@@ -28,6 +26,19 @@
     "web": {
       "bundler": "metro",
       "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ],
+      "expo-apple-authentication"
+    ],
+    "extra": {
+      "supportsRTL": true,
+      "oneSignalAppId": "7bcd247a-1208-4225-93c4-5716ee213644"
     }
   }
 }

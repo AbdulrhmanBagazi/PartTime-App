@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react'
 import { Button } from 'react-native-paper'
 import { View } from 'react-native'
-import {
-  androidClientId,
-  expoClientId,
-  iosClientId
-} from '../done/config/app.config'
+import { androidClientId, expoClientId, iosClientId } from '../config/config'
 import * as Google from 'expo-auth-session/providers/google'
-import { Image } from 'expo-image'
-import { useAuthHook } from '../done/hook/auth'
-import { GoogleArgs, QueryResponse } from '../done/types/types'
+// import { Image } from 'expo-image'
+import { useAuthHook } from '../hook/auth'
+import { GoogleArgs, QueryResponse } from '../types/types'
 import { makeRedirectUri } from 'expo-auth-session'
 
 const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
@@ -32,7 +28,8 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
 
   useEffect(() => {
     if (response?.type === 'success') {
-      GoogleSignIn({ idToken: response.authentication.idToken })
+      if (response.authentication?.idToken)
+        GoogleSignIn({ idToken: response.authentication.idToken })
     }
   }, [response])
 
@@ -67,7 +64,7 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
             // opacity: loading ? 0.25 : 1
           }}
         >
-          <Image
+          {/* <Image
             source={require('../assets/google-logo.png')}
             style={{
               width: size,
@@ -75,7 +72,7 @@ const MGoogleButton: React.FC<{ text: String; dark: boolean }> = ({
               backgroundColor: 'white'
             }}
             transition={1000}
-          />
+          /> */}
         </View>
       )}
     >
